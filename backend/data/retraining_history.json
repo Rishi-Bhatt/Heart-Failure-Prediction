@@ -1,0 +1,352 @@
+{
+  "timestamp": "2025-04-14T14:51:04.773232",
+  "num_records": 9,
+  "accuracy": 0.895,
+  "message": "Model retrained successfully with 9 records",
+  "last_retraining_date": "2025-05-07T21:01:32.204669",
+  "retraining_count": 35,
+  "records_since_last_retraining": 0,
+  "performance_history": [
+    {
+      "date": "2025-04-15T18:32:58.989053",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-15T18:33:52.593062",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-15T18:42:32.126359",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-16T09:48:04.762770",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-16T14:13:03.394890",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-18T15:32:22.518647",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-19T17:16:21.336250",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-19T17:31:21.595905",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-19T17:31:47.130562",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-19T18:02:56.457941",
+      "metrics": {
+        "accuracy": 0.85,
+        "precision": 0.82,
+        "recall": 0.79,
+        "f1": 0.8
+      }
+    },
+    {
+      "date": "2025-04-19T22:25:21.288237",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 48
+    },
+    {
+      "date": "2025-04-19T22:34:11.954991",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 48
+    },
+    {
+      "date": "2025-04-20T21:08:54.561941",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 48
+    },
+    {
+      "date": "2025-04-23T21:51:03.449117",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 48
+    },
+    {
+      "date": "2025-04-23T22:38:06.181274",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 53
+    },
+    {
+      "date": "2025-04-23T22:52:26.132107",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 53
+    },
+    {
+      "date": "2025-04-23T22:52:42.895752",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 53
+    },
+    {
+      "date": "2025-04-23T23:14:32.262770",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 53
+    },
+    {
+      "date": "2025-04-23T23:17:47.889929",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 53
+    },
+    {
+      "date": "2025-04-24T01:49:56.601738",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 64
+    },
+    {
+      "date": "2025-04-24T02:17:29.856771",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 74
+    },
+    {
+      "date": "2025-04-24T21:32:21.259726",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 76
+    },
+    {
+      "date": "2025-04-24T21:32:40.773342",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 76
+    },
+    {
+      "date": "2025-04-24T23:07:49.463005",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 104
+    },
+    {
+      "date": "2025-04-25T00:29:15.240436",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 108
+    },
+    {
+      "date": "2025-04-25T01:36:15.395411",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 121
+    },
+    {
+      "date": "2025-04-25T18:35:38.170509",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 131
+    },
+    {
+      "date": "2025-04-25T22:59:50.856110",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 133
+    },
+    {
+      "date": "2025-04-25T23:03:45.208611",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 134
+    },
+    {
+      "date": "2025-04-26T10:50:47.677214",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 134
+    },
+    {
+      "date": "2025-04-26T10:53:47.044846",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 134
+    },
+    {
+      "date": "2025-04-28T11:40:31.311052",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 134
+    },
+    {
+      "date": "2025-05-03T20:58:38.415663",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 134
+    },
+    {
+      "date": "2025-05-03T21:07:39.020959",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 135
+    },
+    {
+      "date": "2025-05-07T21:01:32.204674",
+      "metrics": {
+        "accuracy": 0.91,
+        "precision": 0.89,
+        "recall": 0.92,
+        "f1": 0.9
+      },
+      "num_records": 135
+    }
+  ],
+  "drift_detected": false
+}

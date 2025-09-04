@@ -1,0 +1,146 @@
+\section{Data Processing and Model Implementation}
+
+\subsection{Data Sources and Preprocessing}
+
+For development and validation, we used data derived from the MIMIC-III clinical database (n=5,432), supplemented with a smaller validation cohort (n=1,245) from a local hospital registry. The data includes demographic information, clinical parameters, laboratory values, and cardiac history.
+
+We implemented a comprehensive data preprocessing pipeline to handle the challenges of clinical data:
+
+\begin{algorithm}
+\caption{Data Preprocessing Pipeline}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Raw patient data
+\STATE \textbf{Output:} Processed feature vectors
+
+\STATE \textbf{function} PreprocessData(patientData)
+    \STATE data $\gets$ ValidateData(patientData)
+    \STATE data $\gets$ HandleMissingValues(data)
+    \STATE data $\gets$ NormalizeValues(data)
+    \STATE data $\gets$ EncodeCategorialVariables(data)
+    \STATE data $\gets$ ExtractTemporalFeatures(data)
+    \STATE data $\gets$ ApplyFeatureTransformations(data)
+    \STATE data $\gets$ FeatureSelection(data)
+    \RETURN data
+\end{algorithmic}
+\end{algorithm}
+
+For missing value handling, we implemented a hierarchical approach:
+\begin{enumerate}
+    \item Domain-specific imputation for clinically interpretable values (e.g., normal ranges)
+    \item Multiple imputation for variables with moderate missingness (10-30\%)
+    \item Feature exclusion for variables with excessive missingness (>30\%)
+\end{enumerate}
+
+\subsection{NT-proBNP Processing}
+
+Special attention was given to NT-proBNP processing due to its importance in heart failure prediction:
+
+\begin{lstlisting}[caption=NT-proBNP Processing Implementation, label=lst:ntprobnp]
+def process_nt_probnp(value, age, egfr=None):
+    # Handle missing values
+    if value is None or np.isnan(value):
+        return None
+        
+    # Apply age-adjusted thresholds
+    if age < 50:
+        threshold = 450
+    elif age <= 75:
+        threshold = 900
+    else:
+        threshold = 1800
+        
+    # Log transformation for machine learning model
+    log_value = np.log1p(value)
+    
+    # Sigmoid normalization for rule-based model
+    normalized_value = 1.0 / (1.0 + np.exp(-0.003 * (value - threshold)))
+    
+    # Create interaction terms if eGFR is available
+    if egfr is not None:
+        # Adjust for kidney function
+        if egfr < 60:  # Reduced kidney function
+            kidney_factor = 1.0 + (60 - egfr) / 60
+            normalized_value = normalized_value / kidney_factor
+            
+    return {
+        'log_value': log_value,
+        'normalized_value': normalized_value,
+        'threshold': threshold
+    }
+\end{lstlisting}
+
+\subsection{Random Forest Implementation}
+
+We implemented the Random Forest model using scikit-learn with custom extensions to enhance performance and interpretability for clinical applications.
+
+\subsubsection{Mathematical Formulation}
+
+The Random Forest model $f(\\mathbf{x})$ is defined as:
+
+\begin{equation}
+    f(\\mathbf{x}) = \\frac{1}{B} \\sum_{b=1}^{B} f_b(\\mathbf{x})
+\end{equation}
+
+where $B$ is the number of trees in the forest (set to 500 in our implementation) and $f_b(\\mathbf{x})$ is the prediction of the $b$-th tree.
+
+For feature importance, we use the mean decrease in impurity (MDI) method:
+
+\begin{equation}
+    \\text{Importance}(X_j) = \\sum_{t \\in \\text{Trees}} \\sum_{n \\in \\text{Nodes}} w_n I_n \\mathbf{1}(v_n = j)
+\end{equation}
+
+where $w_n$ is the weighted number of samples reaching node $n$, $I_n$ is the impurity decrease at node $n$, and $\\mathbf{1}(v_n = j)$ is an indicator function that equals 1 if feature $j$ is used for splitting at node $n$.
+
+\subsubsection{Model Configuration}
+
+The Random Forest classifier was configured with the following parameters:
+
+\begin{lstlisting}[caption=Random Forest Configuration, label=lst:rf_config]
+rf_model = RandomForestClassifier(
+    n_estimators=500,           # Number of trees
+    max_depth=None,             # No maximum depth limit
+    min_samples_split=5,        # Minimum samples required to split
+    min_samples_leaf=2,         # Minimum samples in leaf nodes
+    max_features='sqrt',        # Number of features to consider
+    bootstrap=True,             # Use bootstrap sampling
+    oob_score=True,             # Use out-of-bag samples
+    n_jobs=-1,                  # Use all available cores
+    random_state=42,            # For reproducibility
+    class_weight='balanced'     # Handle class imbalance
+)
+\end{lstlisting}
+
+\subsection{Rule-Based Component}
+
+The rule-based component was implemented as a separate module that encodes established clinical knowledge and guidelines. Rules were defined using a domain-specific language (DSL) that is both machine-readable and clinician-friendly:
+
+\begin{lstlisting}[caption=Rule Definition Example, label=lst:rule_definition]
+{
+  "rule_id": "HF_RISK_AGE",
+  "description": "Age-based heart failure risk factor",
+  "version": "1.2",
+  "condition": {
+    "operator": ">=",
+    "parameter": "age",
+    "value": 65
+  },
+  "action": {
+    "type": "add_risk_score",
+    "value": {
+      "type": "linear",
+      "base": 0.05,
+      "increment": 0.01,
+      "parameter": "age",
+      "threshold": 65
+    }
+  },
+  "evidence": [
+    {
+      "source": "McDonagh et al., 2021",
+      "strength": "strong"
+    }
+  ]
+}
+\end{lstlisting}
+
+We implemented specific modules for major clinical guidelines, including the 2021 ESC Guidelines for heart failure and the ACC/AHA heart failure risk assessment.

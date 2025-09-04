@@ -1,0 +1,2081 @@
+[
+  {
+    "timestamp": "2025-04-15T15:08:20.063427",
+    "num_records": 10,
+    "total_records": 10,
+    "processed_count": 10,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.07999999999999999,
+        "gender_male": 0.0,
+        "systolic_bp": 0.039999999999999994,
+        "cholesterol": 0.039999999999999994,
+        "fasting_blood_sugar": 0.04999999999999999,
+        "max_heart_rate": 0.029999999999999992,
+        "exercise_angina": 0.059999999999999984,
+        "st_depression": 0.07999999999999999,
+        "st_slope_flat": 0.0,
+        "st_slope_downsloping": 0.03999999999999999,
+        "num_vessels": 0.009999999999999993,
+        "thalassemia_fixed": 0.0,
+        "thalassemia_reversible": 0.06999999999999999,
+        "nt_probnp": 0.059999999999999984,
+        "nt_probnp_threshold_ratio": 0.04000000000000001,
+        "age_systolic_interaction": 0.049999999999999996,
+        "angina_st_interaction": 0.059999999999999984,
+        "nt_probnp_age_interaction": 0.039999999999999994,
+        "nt_probnp_st_interaction": 0.06999999999999999,
+        "nt_probnp_vessels_interaction": 0.06999999999999999,
+        "age_hr_interaction": 0.10999999999999997
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.10999999999999997,
+        "std": 0.31288975694324045,
+        "lower_ci": 0.0,
+        "upper_ci": 0.7232639236087512
+      },
+      {
+        "feature": "age",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.06999999999999999,
+        "std": 0.25514701644346155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291846
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434616,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291847
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434615,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291845
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407582,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118861
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407584,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118864
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.059999999999999984,
+        "std": 0.23748684174075818,
+        "lower_ci": 0.0,
+        "upper_ci": 0.525474209811886
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.049999999999999996,
+        "std": 0.21794494717703383,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4771720964669863
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.04999999999999999,
+        "std": 0.21794494717703367,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47717209646698594
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.04000000000000001,
+        "std": 0.19595917942265403,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42407999166840193
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.039999999999999994,
+        "std": 0.1959591794226542,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684022
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.039999999999999994,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.039999999999999994,
+        "std": 0.195959179422654,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684018
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.03999999999999999,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.029999999999999992,
+        "std": 0.17058722109231975,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3643509533409467
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.009999999999999993,
+        "std": 0.09949874371066192,
+        "lower_ci": 0.0,
+        "upper_ci": 0.20501753767289735
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 10 usable records out of 10 total"
+  },
+  {
+    "timestamp": "2025-04-15T15:10:20.461386",
+    "num_records": 10,
+    "total_records": 10,
+    "processed_count": 10,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.07999999999999999,
+        "gender_male": 0.0,
+        "systolic_bp": 0.039999999999999994,
+        "cholesterol": 0.039999999999999994,
+        "fasting_blood_sugar": 0.04999999999999999,
+        "max_heart_rate": 0.029999999999999992,
+        "exercise_angina": 0.059999999999999984,
+        "st_depression": 0.07999999999999999,
+        "st_slope_flat": 0.0,
+        "st_slope_downsloping": 0.03999999999999999,
+        "num_vessels": 0.009999999999999993,
+        "thalassemia_fixed": 0.0,
+        "thalassemia_reversible": 0.06999999999999999,
+        "nt_probnp": 0.059999999999999984,
+        "nt_probnp_threshold_ratio": 0.04000000000000001,
+        "age_systolic_interaction": 0.049999999999999996,
+        "angina_st_interaction": 0.059999999999999984,
+        "nt_probnp_age_interaction": 0.039999999999999994,
+        "nt_probnp_st_interaction": 0.06999999999999999,
+        "nt_probnp_vessels_interaction": 0.06999999999999999,
+        "age_hr_interaction": 0.10999999999999997
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.10999999999999997,
+        "std": 0.31288975694324045,
+        "lower_ci": 0.0,
+        "upper_ci": 0.7232639236087512
+      },
+      {
+        "feature": "age",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.06999999999999999,
+        "std": 0.25514701644346155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291846
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434616,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291847
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434615,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291845
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407582,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118861
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407584,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118864
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.059999999999999984,
+        "std": 0.23748684174075818,
+        "lower_ci": 0.0,
+        "upper_ci": 0.525474209811886
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.049999999999999996,
+        "std": 0.21794494717703383,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4771720964669863
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.04999999999999999,
+        "std": 0.21794494717703367,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47717209646698594
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.04000000000000001,
+        "std": 0.19595917942265403,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42407999166840193
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.039999999999999994,
+        "std": 0.1959591794226542,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684022
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.039999999999999994,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.039999999999999994,
+        "std": 0.195959179422654,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684018
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.03999999999999999,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.029999999999999992,
+        "std": 0.17058722109231975,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3643509533409467
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.009999999999999993,
+        "std": 0.09949874371066192,
+        "lower_ci": 0.0,
+        "upper_ci": 0.20501753767289735
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 10 usable records out of 10 total"
+  },
+  {
+    "timestamp": "2025-04-15T15:10:37.833412",
+    "num_records": 10,
+    "total_records": 10,
+    "processed_count": 10,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.07999999999999999,
+        "gender_male": 0.0,
+        "systolic_bp": 0.039999999999999994,
+        "cholesterol": 0.039999999999999994,
+        "fasting_blood_sugar": 0.04999999999999999,
+        "max_heart_rate": 0.029999999999999992,
+        "exercise_angina": 0.059999999999999984,
+        "st_depression": 0.07999999999999999,
+        "st_slope_flat": 0.0,
+        "st_slope_downsloping": 0.03999999999999999,
+        "num_vessels": 0.009999999999999993,
+        "thalassemia_fixed": 0.0,
+        "thalassemia_reversible": 0.06999999999999999,
+        "nt_probnp": 0.059999999999999984,
+        "nt_probnp_threshold_ratio": 0.04000000000000001,
+        "age_systolic_interaction": 0.049999999999999996,
+        "angina_st_interaction": 0.059999999999999984,
+        "nt_probnp_age_interaction": 0.039999999999999994,
+        "nt_probnp_st_interaction": 0.06999999999999999,
+        "nt_probnp_vessels_interaction": 0.06999999999999999,
+        "age_hr_interaction": 0.10999999999999997
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.10999999999999997,
+        "std": 0.31288975694324045,
+        "lower_ci": 0.0,
+        "upper_ci": 0.7232639236087512
+      },
+      {
+        "feature": "age",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.06999999999999999,
+        "std": 0.25514701644346155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291846
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434616,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291847
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434615,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291845
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407582,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118861
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407584,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118864
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.059999999999999984,
+        "std": 0.23748684174075818,
+        "lower_ci": 0.0,
+        "upper_ci": 0.525474209811886
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.049999999999999996,
+        "std": 0.21794494717703383,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4771720964669863
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.04999999999999999,
+        "std": 0.21794494717703367,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47717209646698594
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.04000000000000001,
+        "std": 0.19595917942265403,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42407999166840193
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.039999999999999994,
+        "std": 0.1959591794226542,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684022
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.039999999999999994,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.039999999999999994,
+        "std": 0.195959179422654,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684018
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.03999999999999999,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.029999999999999992,
+        "std": 0.17058722109231975,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3643509533409467
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.009999999999999993,
+        "std": 0.09949874371066192,
+        "lower_ci": 0.0,
+        "upper_ci": 0.20501753767289735
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 10 usable records out of 10 total"
+  },
+  {
+    "timestamp": "2025-04-15T15:15:55.570874",
+    "num_records": 20,
+    "total_records": 21,
+    "processed_count": 20,
+    "skipped_count": 1,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.08758352910292708,
+        "gender_male": 0.14574786872688103,
+        "systolic_bp": 0.05637847711763708,
+        "cholesterol": 0.06485314328121956,
+        "fasting_blood_sugar": 0.0076753306609689,
+        "max_heart_rate": 0.05359401286311388,
+        "exercise_angina": 0.020015005656991453,
+        "st_depression": 0.06147698930395686,
+        "st_slope_flat": 0.04487796002289054,
+        "st_slope_downsloping": 0.01893249830581724,
+        "num_vessels": 0.023447635985383016,
+        "thalassemia_fixed": 0.005055718698310055,
+        "thalassemia_reversible": 0.03202192995727331,
+        "nt_probnp": 0.0005382319105351217,
+        "nt_probnp_threshold_ratio": 0.023573518900692533,
+        "age_systolic_interaction": 0.11923599140426595,
+        "angina_st_interaction": 0.10604233968593524,
+        "nt_probnp_age_interaction": 0.014472620228605104,
+        "nt_probnp_st_interaction": 0.01642773419375154,
+        "nt_probnp_vessels_interaction": 0.0,
+        "age_hr_interaction": 0.09804946399284452
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "gender_male",
+        "importance": 0.14574786872688103,
+        "std": 0.14512475137097242,
+        "lower_ci": 0.0,
+        "upper_ci": 0.43019238141398697
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.11923599140426595,
+        "std": 0.1919697483236663,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4954966981186519
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.10604233968593524,
+        "std": 0.19719389724923347,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4925423782944328
+      },
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.09804946399284452,
+        "std": 0.1682038693541268,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42772904792693306
+      },
+      {
+        "feature": "age",
+        "importance": 0.08758352910292708,
+        "std": 0.16238852231549966,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4058650328413064
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.06485314328121956,
+        "std": 0.14861150736891288,
+        "lower_ci": 0.0,
+        "upper_ci": 0.35613169772428876
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.06147698930395686,
+        "std": 0.14959009671204768,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3546735788595703
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.05637847711763708,
+        "std": 0.12128496142359226,
+        "lower_ci": 0.0,
+        "upper_ci": 0.2940970015078779
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.05359401286311388,
+        "std": 0.11388594147901025,
+        "lower_ci": 0.0,
+        "upper_ci": 0.27681045816197397
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.04487796002289054,
+        "std": 0.12687435021421983,
+        "lower_ci": 0.0,
+        "upper_ci": 0.2935516864427614
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.03202192995727331,
+        "std": 0.09304355092095638,
+        "lower_ci": 0.0,
+        "upper_ci": 0.21438728976234783
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.023573518900692533,
+        "std": 0.099867688709344,
+        "lower_ci": 0.0,
+        "upper_ci": 0.21931418877100675
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.023447635985383016,
+        "std": 0.0836844853417302,
+        "lower_ci": 0.0,
+        "upper_ci": 0.1874692272551742
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.020015005656991453,
+        "std": 0.08583665534271953,
+        "lower_ci": 0.0,
+        "upper_ci": 0.18825485012872173
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.01893249830581724,
+        "std": 0.08304206209577093,
+        "lower_ci": 0.0,
+        "upper_ci": 0.18169494001352826
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.01642773419375154,
+        "std": 0.072821246240497,
+        "lower_ci": 0.0,
+        "upper_ci": 0.15915737682512568
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.014472620228605104,
+        "std": 0.06731967584376022,
+        "lower_ci": 0.0,
+        "upper_ci": 0.14641918488237513
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.0076753306609689,
+        "std": 0.03446059931900202,
+        "lower_ci": 0.0,
+        "upper_ci": 0.07521810532621286
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.005055718698310055,
+        "std": 0.030736798489806982,
+        "lower_ci": 0.0,
+        "upper_ci": 0.06529984373833174
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.0005382319105351217,
+        "std": 0.0044738405504469074,
+        "lower_ci": 0.0,
+        "upper_ci": 0.009306959389411059
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 20 usable records out of 21 total"
+  },
+  {
+    "timestamp": "2025-04-15T15:19:44.597413",
+    "num_records": 20,
+    "total_records": 21,
+    "processed_count": 20,
+    "skipped_count": 1,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.08758352910292708,
+        "gender_male": 0.14574786872688103,
+        "systolic_bp": 0.05637847711763708,
+        "cholesterol": 0.06485314328121956,
+        "fasting_blood_sugar": 0.0076753306609689,
+        "max_heart_rate": 0.05359401286311388,
+        "exercise_angina": 0.020015005656991453,
+        "st_depression": 0.06147698930395686,
+        "st_slope_flat": 0.04487796002289054,
+        "st_slope_downsloping": 0.01893249830581724,
+        "num_vessels": 0.023447635985383016,
+        "thalassemia_fixed": 0.005055718698310055,
+        "thalassemia_reversible": 0.03202192995727331,
+        "nt_probnp": 0.0005382319105351217,
+        "nt_probnp_threshold_ratio": 0.023573518900692533,
+        "age_systolic_interaction": 0.11923599140426595,
+        "angina_st_interaction": 0.10604233968593524,
+        "nt_probnp_age_interaction": 0.014472620228605104,
+        "nt_probnp_st_interaction": 0.01642773419375154,
+        "nt_probnp_vessels_interaction": 0.0,
+        "age_hr_interaction": 0.09804946399284452
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "gender_male",
+        "importance": 0.14574786872688103,
+        "std": 0.14512475137097242,
+        "lower_ci": 0.0,
+        "upper_ci": 0.43019238141398697
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.11923599140426595,
+        "std": 0.1919697483236663,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4954966981186519
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.10604233968593524,
+        "std": 0.19719389724923347,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4925423782944328
+      },
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.09804946399284452,
+        "std": 0.1682038693541268,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42772904792693306
+      },
+      {
+        "feature": "age",
+        "importance": 0.08758352910292708,
+        "std": 0.16238852231549966,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4058650328413064
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.06485314328121956,
+        "std": 0.14861150736891288,
+        "lower_ci": 0.0,
+        "upper_ci": 0.35613169772428876
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.06147698930395686,
+        "std": 0.14959009671204768,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3546735788595703
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.05637847711763708,
+        "std": 0.12128496142359226,
+        "lower_ci": 0.0,
+        "upper_ci": 0.2940970015078779
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.05359401286311388,
+        "std": 0.11388594147901025,
+        "lower_ci": 0.0,
+        "upper_ci": 0.27681045816197397
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.04487796002289054,
+        "std": 0.12687435021421983,
+        "lower_ci": 0.0,
+        "upper_ci": 0.2935516864427614
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.03202192995727331,
+        "std": 0.09304355092095638,
+        "lower_ci": 0.0,
+        "upper_ci": 0.21438728976234783
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.023573518900692533,
+        "std": 0.099867688709344,
+        "lower_ci": 0.0,
+        "upper_ci": 0.21931418877100675
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.023447635985383016,
+        "std": 0.0836844853417302,
+        "lower_ci": 0.0,
+        "upper_ci": 0.1874692272551742
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.020015005656991453,
+        "std": 0.08583665534271953,
+        "lower_ci": 0.0,
+        "upper_ci": 0.18825485012872173
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.01893249830581724,
+        "std": 0.08304206209577093,
+        "lower_ci": 0.0,
+        "upper_ci": 0.18169494001352826
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.01642773419375154,
+        "std": 0.072821246240497,
+        "lower_ci": 0.0,
+        "upper_ci": 0.15915737682512568
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.014472620228605104,
+        "std": 0.06731967584376022,
+        "lower_ci": 0.0,
+        "upper_ci": 0.14641918488237513
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.0076753306609689,
+        "std": 0.03446059931900202,
+        "lower_ci": 0.0,
+        "upper_ci": 0.07521810532621286
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.005055718698310055,
+        "std": 0.030736798489806982,
+        "lower_ci": 0.0,
+        "upper_ci": 0.06529984373833174
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.0005382319105351217,
+        "std": 0.0044738405504469074,
+        "lower_ci": 0.0,
+        "upper_ci": 0.009306959389411059
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 20 usable records out of 21 total"
+  },
+  {
+    "timestamp": "2025-04-15T15:35:16.968883",
+    "num_records": 22,
+    "total_records": 22,
+    "processed_count": 22,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.09259193251831455,
+        "gender_male": 0.13307600941877787,
+        "systolic_bp": 0.06543463760371267,
+        "cholesterol": 0.07591796336344792,
+        "fasting_blood_sugar": 0.0010370370370370373,
+        "max_heart_rate": 0.05892515820037282,
+        "exercise_angina": 0.013680109764304981,
+        "st_depression": 0.08468506450494669,
+        "st_slope_flat": 0.015163293950058658,
+        "st_slope_downsloping": 0.032705496292493204,
+        "num_vessels": 0.020790365355505134,
+        "thalassemia_fixed": 0.00033939393939394,
+        "thalassemia_reversible": 0.03395052150681466,
+        "nt_probnp": 0.019041858458783128,
+        "nt_probnp_threshold_ratio": 0.02676127503335319,
+        "age_systolic_interaction": 0.12460352333719747,
+        "angina_st_interaction": 0.10397636077713338,
+        "nt_probnp_age_interaction": 0.008350531501166712,
+        "nt_probnp_st_interaction": 0.0033691493691493696,
+        "nt_probnp_vessels_interaction": 0.002170385395537527,
+        "age_hr_interaction": 0.08342993267249921
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "gender_male",
+        "importance": 0.13307600941877787,
+        "std": 0.13809320993572155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.40373870089279207
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.12460352333719747,
+        "std": 0.2068643928582268,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5300577333393219
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.10397636077713338,
+        "std": 0.1876771345428421,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47182354448110386
+      },
+      {
+        "feature": "age",
+        "importance": 0.09259193251831455,
+        "std": 0.15963634807183918,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4054791747391193
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.08468506450494669,
+        "std": 0.1525903626544092,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3837621753075887
+      },
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.08342993267249921,
+        "std": 0.1515824126466195,
+        "lower_ci": 0.0,
+        "upper_ci": 0.38053146145987343
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.07591796336344792,
+        "std": 0.1496458829318297,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3692238939098341
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.06543463760371267,
+        "std": 0.1461946043293361,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3519760620892114
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.05892515820037282,
+        "std": 0.12657769892519805,
+        "lower_ci": 0.0,
+        "upper_ci": 0.30701744809376097
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.03395052150681466,
+        "std": 0.08877624720202477,
+        "lower_ci": 0.0,
+        "upper_ci": 0.2079519660227832
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.032705496292493204,
+        "std": 0.11963669762718086,
+        "lower_ci": 0.0,
+        "upper_ci": 0.2671934236417677
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.02676127503335319,
+        "std": 0.08778736594943833,
+        "lower_ci": 0.0,
+        "upper_ci": 0.1988245122942523
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.020790365355505134,
+        "std": 0.0725475812015557,
+        "lower_ci": 0.0,
+        "upper_ci": 0.16298362451055431
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.019041858458783128,
+        "std": 0.0939195708434282,
+        "lower_ci": 0.0,
+        "upper_ci": 0.2031242173119024
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.015163293950058658,
+        "std": 0.06282650193798323,
+        "lower_ci": 0.0,
+        "upper_ci": 0.13830323774850578
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.013680109764304981,
+        "std": 0.053760798341655744,
+        "lower_ci": 0.0,
+        "upper_ci": 0.11905127451395023
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.008350531501166712,
+        "std": 0.05608001610967784,
+        "lower_ci": 0.0,
+        "upper_ci": 0.11826736307613528
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.0033691493691493696,
+        "std": 0.023656515254156785,
+        "lower_ci": 0.0,
+        "upper_ci": 0.049735919267296674
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.002170385395537527,
+        "std": 0.01633022713729232,
+        "lower_ci": 0.0,
+        "upper_ci": 0.034177630584630476
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.0010370370370370373,
+        "std": 0.010318388236661237,
+        "lower_ci": 0.0,
+        "upper_ci": 0.02126107798089306
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.00033939393939394,
+        "std": 0.0033769270592709563,
+        "lower_ci": 0.0,
+        "upper_ci": 0.006958170975565014
+      }
+    ],
+    "message": "Random Forest model trained successfully with 22 usable records out of 22 total"
+  },
+  {
+    "timestamp": "2025-04-18T15:11:29.827057",
+    "num_records": 10,
+    "total_records": 10,
+    "processed_count": 10,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.07999999999999999,
+        "gender_male": 0.0,
+        "systolic_bp": 0.039999999999999994,
+        "cholesterol": 0.039999999999999994,
+        "fasting_blood_sugar": 0.04999999999999999,
+        "max_heart_rate": 0.029999999999999992,
+        "exercise_angina": 0.059999999999999984,
+        "st_depression": 0.07999999999999999,
+        "st_slope_flat": 0.0,
+        "st_slope_downsloping": 0.03999999999999999,
+        "num_vessels": 0.009999999999999993,
+        "thalassemia_fixed": 0.0,
+        "thalassemia_reversible": 0.06999999999999999,
+        "nt_probnp": 0.059999999999999984,
+        "nt_probnp_threshold_ratio": 0.04000000000000001,
+        "age_systolic_interaction": 0.049999999999999996,
+        "angina_st_interaction": 0.059999999999999984,
+        "nt_probnp_age_interaction": 0.039999999999999994,
+        "nt_probnp_st_interaction": 0.06999999999999999,
+        "nt_probnp_vessels_interaction": 0.06999999999999999,
+        "age_hr_interaction": 0.10999999999999997
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.10999999999999997,
+        "std": 0.31288975694324045,
+        "lower_ci": 0.0,
+        "upper_ci": 0.7232639236087512
+      },
+      {
+        "feature": "age",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.06999999999999999,
+        "std": 0.25514701644346155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291846
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434616,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291847
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434615,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291845
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407582,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118861
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407584,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118864
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.059999999999999984,
+        "std": 0.23748684174075818,
+        "lower_ci": 0.0,
+        "upper_ci": 0.525474209811886
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.049999999999999996,
+        "std": 0.21794494717703383,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4771720964669863
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.04999999999999999,
+        "std": 0.21794494717703367,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47717209646698594
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.04000000000000001,
+        "std": 0.19595917942265403,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42407999166840193
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.039999999999999994,
+        "std": 0.1959591794226542,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684022
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.039999999999999994,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.039999999999999994,
+        "std": 0.195959179422654,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684018
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.03999999999999999,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.029999999999999992,
+        "std": 0.17058722109231975,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3643509533409467
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.009999999999999993,
+        "std": 0.09949874371066192,
+        "lower_ci": 0.0,
+        "upper_ci": 0.20501753767289735
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 10 usable records out of 10 total"
+  },
+  {
+    "timestamp": "2025-04-18T15:16:05.918946",
+    "num_records": 10,
+    "total_records": 10,
+    "processed_count": 10,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.07999999999999999,
+        "gender_male": 0.0,
+        "systolic_bp": 0.039999999999999994,
+        "cholesterol": 0.039999999999999994,
+        "fasting_blood_sugar": 0.04999999999999999,
+        "max_heart_rate": 0.029999999999999992,
+        "exercise_angina": 0.059999999999999984,
+        "st_depression": 0.07999999999999999,
+        "st_slope_flat": 0.0,
+        "st_slope_downsloping": 0.03999999999999999,
+        "num_vessels": 0.009999999999999993,
+        "thalassemia_fixed": 0.0,
+        "thalassemia_reversible": 0.06999999999999999,
+        "nt_probnp": 0.059999999999999984,
+        "nt_probnp_threshold_ratio": 0.04000000000000001,
+        "age_systolic_interaction": 0.049999999999999996,
+        "angina_st_interaction": 0.059999999999999984,
+        "nt_probnp_age_interaction": 0.039999999999999994,
+        "nt_probnp_st_interaction": 0.06999999999999999,
+        "nt_probnp_vessels_interaction": 0.06999999999999999,
+        "age_hr_interaction": 0.10999999999999997
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.10999999999999997,
+        "std": 0.31288975694324045,
+        "lower_ci": 0.0,
+        "upper_ci": 0.7232639236087512
+      },
+      {
+        "feature": "age",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.06999999999999999,
+        "std": 0.25514701644346155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291846
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434616,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291847
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434615,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291845
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407582,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118861
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407584,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118864
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.059999999999999984,
+        "std": 0.23748684174075818,
+        "lower_ci": 0.0,
+        "upper_ci": 0.525474209811886
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.049999999999999996,
+        "std": 0.21794494717703383,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4771720964669863
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.04999999999999999,
+        "std": 0.21794494717703367,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47717209646698594
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.04000000000000001,
+        "std": 0.19595917942265403,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42407999166840193
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.039999999999999994,
+        "std": 0.1959591794226542,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684022
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.039999999999999994,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.039999999999999994,
+        "std": 0.195959179422654,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684018
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.03999999999999999,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.029999999999999992,
+        "std": 0.17058722109231975,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3643509533409467
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.009999999999999993,
+        "std": 0.09949874371066192,
+        "lower_ci": 0.0,
+        "upper_ci": 0.20501753767289735
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 10 usable records out of 10 total"
+  },
+  {
+    "timestamp": "2025-04-18T15:18:52.162709",
+    "num_records": 10,
+    "total_records": 10,
+    "processed_count": 10,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.07999999999999999,
+        "gender_male": 0.0,
+        "systolic_bp": 0.039999999999999994,
+        "cholesterol": 0.039999999999999994,
+        "fasting_blood_sugar": 0.04999999999999999,
+        "max_heart_rate": 0.029999999999999992,
+        "exercise_angina": 0.059999999999999984,
+        "st_depression": 0.07999999999999999,
+        "st_slope_flat": 0.0,
+        "st_slope_downsloping": 0.03999999999999999,
+        "num_vessels": 0.009999999999999993,
+        "thalassemia_fixed": 0.0,
+        "thalassemia_reversible": 0.06999999999999999,
+        "nt_probnp": 0.059999999999999984,
+        "nt_probnp_threshold_ratio": 0.04000000000000001,
+        "age_systolic_interaction": 0.049999999999999996,
+        "angina_st_interaction": 0.059999999999999984,
+        "nt_probnp_age_interaction": 0.039999999999999994,
+        "nt_probnp_st_interaction": 0.06999999999999999,
+        "nt_probnp_vessels_interaction": 0.06999999999999999,
+        "age_hr_interaction": 0.10999999999999997
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.10999999999999997,
+        "std": 0.31288975694324045,
+        "lower_ci": 0.0,
+        "upper_ci": 0.7232639236087512
+      },
+      {
+        "feature": "age",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.06999999999999999,
+        "std": 0.25514701644346155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291846
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434616,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291847
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434615,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291845
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407582,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118861
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407584,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118864
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.059999999999999984,
+        "std": 0.23748684174075818,
+        "lower_ci": 0.0,
+        "upper_ci": 0.525474209811886
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.049999999999999996,
+        "std": 0.21794494717703383,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4771720964669863
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.04999999999999999,
+        "std": 0.21794494717703367,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47717209646698594
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.04000000000000001,
+        "std": 0.19595917942265403,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42407999166840193
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.039999999999999994,
+        "std": 0.1959591794226542,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684022
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.039999999999999994,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.039999999999999994,
+        "std": 0.195959179422654,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684018
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.03999999999999999,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.029999999999999992,
+        "std": 0.17058722109231975,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3643509533409467
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.009999999999999993,
+        "std": 0.09949874371066192,
+        "lower_ci": 0.0,
+        "upper_ci": 0.20501753767289735
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 10 usable records out of 10 total"
+  },
+  {
+    "timestamp": "2025-04-18T15:23:05.377865",
+    "num_records": 10,
+    "total_records": 10,
+    "processed_count": 10,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.07999999999999999,
+        "gender_male": 0.0,
+        "systolic_bp": 0.039999999999999994,
+        "cholesterol": 0.039999999999999994,
+        "fasting_blood_sugar": 0.04999999999999999,
+        "max_heart_rate": 0.029999999999999992,
+        "exercise_angina": 0.059999999999999984,
+        "st_depression": 0.07999999999999999,
+        "st_slope_flat": 0.0,
+        "st_slope_downsloping": 0.03999999999999999,
+        "num_vessels": 0.009999999999999993,
+        "thalassemia_fixed": 0.0,
+        "thalassemia_reversible": 0.06999999999999999,
+        "nt_probnp": 0.059999999999999984,
+        "nt_probnp_threshold_ratio": 0.04000000000000001,
+        "age_systolic_interaction": 0.049999999999999996,
+        "angina_st_interaction": 0.059999999999999984,
+        "nt_probnp_age_interaction": 0.039999999999999994,
+        "nt_probnp_st_interaction": 0.06999999999999999,
+        "nt_probnp_vessels_interaction": 0.06999999999999999,
+        "age_hr_interaction": 0.10999999999999997
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.10999999999999997,
+        "std": 0.31288975694324045,
+        "lower_ci": 0.0,
+        "upper_ci": 0.7232639236087512
+      },
+      {
+        "feature": "age",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.06999999999999999,
+        "std": 0.25514701644346155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291846
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434616,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291847
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434615,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291845
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407582,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118861
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407584,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118864
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.059999999999999984,
+        "std": 0.23748684174075818,
+        "lower_ci": 0.0,
+        "upper_ci": 0.525474209811886
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.049999999999999996,
+        "std": 0.21794494717703383,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4771720964669863
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.04999999999999999,
+        "std": 0.21794494717703367,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47717209646698594
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.04000000000000001,
+        "std": 0.19595917942265403,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42407999166840193
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.039999999999999994,
+        "std": 0.1959591794226542,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684022
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.039999999999999994,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.039999999999999994,
+        "std": 0.195959179422654,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684018
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.03999999999999999,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.029999999999999992,
+        "std": 0.17058722109231975,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3643509533409467
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.009999999999999993,
+        "std": 0.09949874371066192,
+        "lower_ci": 0.0,
+        "upper_ci": 0.20501753767289735
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 10 usable records out of 10 total"
+  },
+  {
+    "timestamp": "2025-04-18T15:25:17.294883",
+    "num_records": 10,
+    "total_records": 10,
+    "processed_count": 10,
+    "skipped_count": 0,
+    "metrics": {
+      "accuracy": 1.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.5,
+      "sensitivity": 0,
+      "specificity": 0,
+      "ppv": 0,
+      "npv": 0,
+      "feature_importance": {
+        "age": 0.07999999999999999,
+        "gender_male": 0.0,
+        "systolic_bp": 0.039999999999999994,
+        "cholesterol": 0.039999999999999994,
+        "fasting_blood_sugar": 0.04999999999999999,
+        "max_heart_rate": 0.029999999999999992,
+        "exercise_angina": 0.059999999999999984,
+        "st_depression": 0.07999999999999999,
+        "st_slope_flat": 0.0,
+        "st_slope_downsloping": 0.03999999999999999,
+        "num_vessels": 0.009999999999999993,
+        "thalassemia_fixed": 0.0,
+        "thalassemia_reversible": 0.06999999999999999,
+        "nt_probnp": 0.059999999999999984,
+        "nt_probnp_threshold_ratio": 0.04000000000000001,
+        "age_systolic_interaction": 0.049999999999999996,
+        "angina_st_interaction": 0.059999999999999984,
+        "nt_probnp_age_interaction": 0.039999999999999994,
+        "nt_probnp_st_interaction": 0.06999999999999999,
+        "nt_probnp_vessels_interaction": 0.06999999999999999,
+        "age_hr_interaction": 0.10999999999999997
+      }
+    },
+    "feature_importance": [
+      {
+        "feature": "age_hr_interaction",
+        "importance": 0.10999999999999997,
+        "std": 0.31288975694324045,
+        "lower_ci": 0.0,
+        "upper_ci": 0.7232639236087512
+      },
+      {
+        "feature": "age",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "st_depression",
+        "importance": 0.07999999999999999,
+        "std": 0.27129319932501084,
+        "lower_ci": 0.0,
+        "upper_ci": 0.6117346706770211
+      },
+      {
+        "feature": "thalassemia_reversible",
+        "importance": 0.06999999999999999,
+        "std": 0.25514701644346155,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291846
+      },
+      {
+        "feature": "nt_probnp_st_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434616,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291847
+      },
+      {
+        "feature": "nt_probnp_vessels_interaction",
+        "importance": 0.06999999999999999,
+        "std": 0.2551470164434615,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5700881522291845
+      },
+      {
+        "feature": "exercise_angina",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407582,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118861
+      },
+      {
+        "feature": "nt_probnp",
+        "importance": 0.059999999999999984,
+        "std": 0.2374868417407584,
+        "lower_ci": 0.0,
+        "upper_ci": 0.5254742098118864
+      },
+      {
+        "feature": "angina_st_interaction",
+        "importance": 0.059999999999999984,
+        "std": 0.23748684174075818,
+        "lower_ci": 0.0,
+        "upper_ci": 0.525474209811886
+      },
+      {
+        "feature": "age_systolic_interaction",
+        "importance": 0.049999999999999996,
+        "std": 0.21794494717703383,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4771720964669863
+      },
+      {
+        "feature": "fasting_blood_sugar",
+        "importance": 0.04999999999999999,
+        "std": 0.21794494717703367,
+        "lower_ci": 0.0,
+        "upper_ci": 0.47717209646698594
+      },
+      {
+        "feature": "nt_probnp_threshold_ratio",
+        "importance": 0.04000000000000001,
+        "std": 0.19595917942265403,
+        "lower_ci": 0.0,
+        "upper_ci": 0.42407999166840193
+      },
+      {
+        "feature": "systolic_bp",
+        "importance": 0.039999999999999994,
+        "std": 0.1959591794226542,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684022
+      },
+      {
+        "feature": "cholesterol",
+        "importance": 0.039999999999999994,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "nt_probnp_age_interaction",
+        "importance": 0.039999999999999994,
+        "std": 0.195959179422654,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684018
+      },
+      {
+        "feature": "st_slope_downsloping",
+        "importance": 0.03999999999999999,
+        "std": 0.19595917942265415,
+        "lower_ci": 0.0,
+        "upper_ci": 0.4240799916684021
+      },
+      {
+        "feature": "max_heart_rate",
+        "importance": 0.029999999999999992,
+        "std": 0.17058722109231975,
+        "lower_ci": 0.0,
+        "upper_ci": 0.3643509533409467
+      },
+      {
+        "feature": "num_vessels",
+        "importance": 0.009999999999999993,
+        "std": 0.09949874371066192,
+        "lower_ci": 0.0,
+        "upper_ci": 0.20501753767289735
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "st_slope_flat",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      },
+      {
+        "feature": "thalassemia_fixed",
+        "importance": 0.0,
+        "std": 0.0,
+        "lower_ci": 0.0,
+        "upper_ci": 0.0
+      }
+    ],
+    "message": "Random Forest model trained successfully with 10 usable records out of 10 total"
+  }
+]

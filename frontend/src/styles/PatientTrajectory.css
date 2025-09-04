@@ -1,0 +1,177 @@
+.patient-trajectory {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.trajectory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.trajectory-header h2 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.add-visit-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-visit-button:hover {
+  background-color: #2980b9;
+}
+
+.add-visit-form {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.trajectory-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.tab-button {
+  background-color: transparent;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-bottom: 3px solid transparent;
+  color: #7f8c8d;
+}
+
+.tab-button:hover {
+  color: #3498db;
+}
+
+.tab-button.active {
+  color: #3498db;
+  border-bottom-color: #3498db;
+  font-weight: 600;
+}
+
+.tab-button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.trajectory-content {
+  min-height: 500px;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #7f8c8d;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.no-data-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  color: #7f8c8d;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.research-notes {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #2ecc71;
+}
+
+.research-notes h4 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.research-notes p {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.research-notes p:last-child {
+  margin-bottom: 0;
+}
+
+.visits-table-container {
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.visits-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.visits-table th,
+.visits-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.visits-table th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.visits-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+@media (max-width: 768px) {
+  .trajectory-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .add-visit-button {
+    margin-top: 10px;
+  }
+  
+  .trajectory-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 8px 10px;
+  }
+}

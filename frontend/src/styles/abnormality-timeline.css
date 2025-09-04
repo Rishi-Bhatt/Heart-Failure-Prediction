@@ -1,0 +1,274 @@
+/* Abnormality Timeline Styles */
+
+.abnormality-timeline {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.abnormality-timeline h5 {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 16px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.abnormality-item {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  background-color: #fff;
+  border-radius: 4px;
+  border-left: 4px solid #3498db;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.abnormality-type {
+  display: block;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 3px;
+}
+
+.abnormality-description {
+  display: block;
+  color: #555;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.abnormality-time {
+  display: block;
+  color: #7f8c8d;
+  font-size: 13px;
+}
+
+/* No abnormalities message */
+.no-abnormalities {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.no-abnormalities p {
+  margin: 0 0 10px 0;
+  color: #555;
+}
+
+.no-abnormalities .note {
+  font-size: 13px;
+  color: #777;
+  font-style: italic;
+}
+
+.abnormality-summary {
+  margin-bottom: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+.timeline-container {
+  position: relative;
+  margin: 30px 0;
+}
+
+.timeline-axis {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  height: 30px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+}
+
+.timeline-tick {
+  position: relative;
+  width: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tick-mark {
+  height: 10px;
+  width: 1px;
+  background-color: #aaa;
+}
+
+.tick-label {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.timeline-events {
+  position: relative;
+  margin-top: 20px;
+}
+
+.abnormality-type-row {
+  display: flex;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.abnormality-type-label {
+  width: 150px;
+  font-weight: 500;
+  padding-right: 10px;
+  text-align: right;
+  color: #444;
+}
+
+.abnormality-markers {
+  position: relative;
+  flex-grow: 1;
+  height: 25px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.abnormality-marker {
+  position: absolute;
+  height: 100%;
+  border-radius: 4px;
+  top: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.abnormality-marker:hover {
+  transform: scaleY(1.2);
+  z-index: 10;
+}
+
+.marker-tooltip {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  width: 200px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  font-size: 12px;
+}
+
+.abnormality-marker:hover .marker-tooltip {
+  display: block;
+}
+
+.marker-tooltip strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.marker-tooltip p {
+  margin: 3px 0;
+  color: #555;
+}
+
+/* Abnormality type colors */
+.pvcs {
+  background-color: #ff5252;
+}
+
+.flatlines {
+  background-color: #9c27b0;
+}
+
+.tachycardia {
+  background-color: #ff9800;
+}
+
+.bradycardia {
+  background-color: #2196f3;
+}
+
+.qt_prolongation {
+  background-color: #4caf50;
+}
+
+.st_depression {
+  background-color: #e91e63;
+}
+
+.st_elevation {
+  background-color: #f44336;
+}
+
+.atrial_fibrillation {
+  background-color: #9c27b0;
+}
+
+.heart_block {
+  background-color: #795548;
+}
+
+/* Detailed findings section */
+.abnormality-details {
+  margin-top: 30px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.abnormality-details h5 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #333;
+}
+
+.abnormality-type-details {
+  margin-bottom: 20px;
+}
+
+.abnormality-type-details h6 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.abnormality-detail-item {
+  display: flex;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.abnormality-detail-marker {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 4px;
+}
+
+.abnormality-detail-content {
+  flex-grow: 1;
+}
+
+.abnormality-description {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.abnormality-time {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.abnormality-detail-content p {
+  margin: 3px 0;
+  font-size: 13px;
+}

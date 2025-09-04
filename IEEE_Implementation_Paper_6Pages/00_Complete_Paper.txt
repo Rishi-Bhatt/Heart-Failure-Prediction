@@ -1,0 +1,56 @@
+% IEEE Conference Format Implementation Paper - 6 Pages
+
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{listings}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+% Title and Abstract
+\input{01_Title_Abstract.txt}
+
+% Introduction
+\input{02_Introduction.txt}
+
+% System Architecture
+\input{03_System_Architecture.txt}
+
+% Data Processing and Model Implementation
+\input{04_Data_Processing_Model.txt}
+
+% Model Retraining
+\input{05_Model_Retraining.txt}
+
+% Key Features
+\input{06_Key_Features.txt}
+
+% Evaluation
+\input{07_Evaluation_Conclusion.txt}
+
+% Uniqueness
+\input{08_Uniqueness.txt}
+
+% Mathematical Formulations
+\input{09_Mathematical_Formulations.txt}
+
+% Implementation Trade-offs and Reproducibility
+\input{10_Implementation_Tradeoffs.txt}
+
+% Random Forest Implementation
+\input{11_Random_Forest_Implementation.txt}
+
+% ECG Integration
+\input{12_ECG_Integration.txt}
+
+% Implementation Challenges and Lessons Learned
+\input{13_Implementation_Challenges.txt}
+
+\end{document}

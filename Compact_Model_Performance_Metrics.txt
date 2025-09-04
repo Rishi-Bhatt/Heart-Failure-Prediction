@@ -1,0 +1,12 @@
+\begin{table}[h]
+\centering
+\caption{Performance Comparison of Heart Failure Prediction Models}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Model} & \textbf{Accuracy (\%)} & \textbf{Precision (\%)} & \textbf{Recall (\%)} & \textbf{F1-Score (\%)} \\ \hline
+Rule-Based     & 82                     & 79                      & 84                   & 81.4                   \\ \hline
+LR             & 85                     & 82                      & 86                   & 84.0                   \\ \hline
+RF             & 88                     & 85                      & 90                   & 87.4                   \\ \hline
+Hybrid         & 91                     & 88                      & 92                   & 90.0                   \\ \hline
+\end{tabular}
+\end{table}

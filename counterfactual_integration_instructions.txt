@@ -1,0 +1,48 @@
+# Instructions for Integrating Counterfactual Explanations into Your IEEE Paper
+
+Follow these steps to incorporate the counterfactual explanation component into your existing IEEE paper:
+
+## 1. Add to the System Analysis and Methodology Section
+
+After the "Explainability and Visualization" subsection (or after the longitudinal tracking section if you've already added that), add the content from:
+- `counterfactual_explanation_section.tex`
+
+This will add a comprehensive explanation of the counterfactual explanation engine, including the mathematical formulations and methodology.
+
+## 2. Add to the Evaluation Section
+
+After the "Explainability Assessment" subsection (or after the longitudinal evaluation section if you've already added that), add the content from:
+- `counterfactual_evaluation_section.tex`
+
+This will provide evaluation metrics for the counterfactual explanation capabilities, including both technical validation and clinical utility assessment.
+
+## 3. Add to the Unique Contributions and Innovations Section
+
+Add the content from `counterfactual_contribution_section.tex` as a new point in your "Unique Contributions and Innovations" section.
+
+## 4. Update the Abstract
+
+Add a sentence to your abstract mentioning the counterfactual explanation capabilities, such as:
+
+"The system provides context-aware counterfactual explanations that respect clinical constraints and generate actionable intervention paths for risk reduction."
+
+## 5. Update the Flowchart
+
+If you're including the system flowchart in your paper, use the updated version from `updated_flowchart_with_counterfactuals.txt` which includes the counterfactual generation components.
+
+## 6. Update References
+
+If you add these sections, you may want to add some references to support the counterfactual explanation approaches. Consider adding references to papers on:
+- Counterfactual explanations in healthcare
+- Clinically feasible intervention modeling
+- Explainable AI for medical decision support
+
+## 7. Check Formatting
+
+After adding these sections, check the overall formatting of your paper to ensure:
+- The equations are properly formatted and numbered
+- The tables fit within the column width
+- The section numbering is consistent
+- The paper still fits within the 6-page IEEE conference format limit
+
+You may need to adjust the content slightly to fit within your page limits while maintaining the key information about counterfactual explanations.

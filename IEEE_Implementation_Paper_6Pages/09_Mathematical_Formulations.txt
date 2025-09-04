@@ -1,0 +1,118 @@
+\subsection{Mathematical Formulations}
+
+This section provides formal mathematical formulations for the key algorithms in our implementation.
+
+\subsubsection{Hybrid Model Integration}
+
+The hybrid model combines predictions from multiple models using a dynamic weighting scheme. For a patient with feature vector $\mathbf{x}$, the final prediction $f(\mathbf{x})$ is:
+
+\begin{equation}
+f(\mathbf{x}) = \sum_{i=1}^{M} w_i(\mathbf{x}) \cdot f_i(\mathbf{x})
+\end{equation}
+
+where $M$ is the number of models, $f_i(\mathbf{x})$ is the prediction from model $i$, and $w_i(\mathbf{x})$ is the weight assigned to model $i$ for this patient. The weights are normalized to sum to 1:
+
+\begin{equation}
+\sum_{i=1}^{M} w_i(\mathbf{x}) = 1
+\end{equation}
+
+The weight for each model is calculated based on its confidence score $c_i(\mathbf{x})$ and data completeness $d(\mathbf{x})$:
+
+\begin{equation}
+w_i(\mathbf{x}) = \frac{c_i(\mathbf{x}) \cdot \alpha_i(d(\mathbf{x}))}{\sum_{j=1}^{M} c_j(\mathbf{x}) \cdot \alpha_j(d(\mathbf{x}))}
+\end{equation}
+
+where $\alpha_i(d(\mathbf{x}))$ is a model-specific adjustment factor based on data completeness:
+
+\begin{equation}
+\alpha_i(d(\mathbf{x})) = 
+\begin{cases}
+1 - \beta_i \cdot d(\mathbf{x}), & \text{for rule-based model} \\
+d(\mathbf{x}), & \text{for ML model} \\
+d(\mathbf{x})^2, & \text{for RF model}
+\end{cases}
+\end{equation}
+
+where $\beta_i$ is a tuning parameter and $d(\mathbf{x}) \in [0,1]$ represents data completeness.
+
+\subsubsection{Drift Detection Algorithm}
+
+The drift detection algorithm monitors model performance over time. Let $p_t$ be the performance metric (e.g., accuracy) at time $t$. We calculate the average performance over a window of size $w$:
+
+\begin{equation}
+\bar{p}_t = \frac{1}{w} \sum_{i=t-w+1}^{t} p_i
+\end{equation}
+
+Drift is detected when the current performance drops below the historical average by more than a threshold $\tau$:
+
+\begin{equation}
+\text{drift}_t = 
+\begin{cases}
+1, & \text{if } \bar{p}_{t-1} - p_t > \tau \\
+0, & \text{otherwise}
+\end{cases}
+\end{equation}
+
+\subsubsection{Temporal Forecasting}
+
+For a patient with feature vector $\mathbf{x}_t$ at time $t$, we predict the risk at future time $t+\Delta t$ as:
+
+\begin{equation}
+r_{t+\Delta t} = \alpha(\Delta t) \cdot f(\mathbf{x}_t) + \beta(\Delta t) \cdot g(\mathbf{x}_{t-k:t}) + (1-\alpha(\Delta t)-\beta(\Delta t)) \cdot h(\mathbf{x}_t, \Delta t)
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $f(\mathbf{x}_t)$ is the current risk prediction from the hybrid model
+    \item $g(\mathbf{x}_{t-k:t})$ is a trend extrapolation based on historical data
+    \item $h(\mathbf{x}_t, \Delta t)$ is a time-dependent risk adjustment
+    \item $\alpha(\Delta t)$ and $\beta(\Delta t)$ are time-dependent weights
+\end{itemize}
+
+The trend extrapolation is calculated as:
+
+\begin{equation}
+g(\mathbf{x}_{t-k:t}) = f(\mathbf{x}_t) + s \cdot \Delta t
+\end{equation}
+
+where $s$ is the risk slope:
+
+\begin{equation}
+s = \frac{f(\mathbf{x}_t) - f(\mathbf{x}_{t-k})}{t - (t-k)}
+\end{equation}
+
+The confidence interval for the forecast is based on historical volatility $\sigma$:
+
+\begin{equation}
+CI_{t+\Delta t} = [r_{t+\Delta t} - 1.96 \cdot \sigma \cdot \sqrt{\Delta t}, r_{t+\Delta t} + 1.96 \cdot \sigma \cdot \sqrt{\Delta t}]
+\end{equation}
+
+\subsubsection{Counterfactual Generation}
+
+For a patient with feature vector $\mathbf{x}$, we generate counterfactual scenarios $\mathbf{x}'$ by modifying modifiable risk factors:
+
+\begin{equation}
+\mathbf{x}' = \mathbf{x} + \Delta \mathbf{x}
+\end{equation}
+
+where $\Delta \mathbf{x}$ represents clinically feasible interventions. The impact of the intervention is:
+
+\begin{equation}
+\text{impact} = f(\mathbf{x}) - f(\mathbf{x}')
+\end{equation}
+
+\subsubsection{Feature Importance Calculation}
+
+For each feature $j$, we calculate its importance $I_j$ as:
+
+\begin{equation}
+I_j(\mathbf{x}) = f(\mathbf{x}) - f(\mathbf{x}_{-j})
+\end{equation}
+
+where $\mathbf{x}_{-j}$ is the feature vector with feature $j$ set to its baseline value. For scenario-specific feature importance, we calculate:
+
+\begin{equation}
+I_j(\mathbf{x}, \mathbf{x}') = \frac{\partial f(\mathbf{x}')}{\partial x'_j} \cdot x'_j
+\end{equation}
+
+This approach provides context-aware explanations that adapt to different intervention scenarios.

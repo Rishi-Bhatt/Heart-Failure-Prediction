@@ -1,0 +1,135 @@
+.patient-forecast {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.forecast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.forecast-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 24px;
+}
+
+.patient-info {
+  text-align: right;
+}
+
+.patient-info h3 {
+  margin: 0 0 5px 0;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+.patient-info p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.forecast-navigation {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.nav-link {
+  padding: 8px 16px;
+  margin-right: 10px;
+  color: #3498db;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.nav-link:hover {
+  background-color: #f5f5f5;
+}
+
+.nav-link.active {
+  background-color: #3498db;
+  color: white;
+  font-weight: 500;
+}
+
+.forecast-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 992px) {
+  .forecast-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.forecast-chart-section,
+.scenario-modeling-section {
+  width: 100%;
+}
+
+.loading-indicator,
+.error-message,
+.no-data-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.error-message {
+  color: #d32f2f;
+}
+
+.error-message a,
+.no-data-message a {
+  color: #3498db;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.research-notes {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.research-notes h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  font-size: 18px;
+}
+
+.research-notes p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+  color: #333;
+  font-size: 14px;
+}
+
+.research-notes ol {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.research-notes li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #333;
+  font-size: 14px;
+}

@@ -1,0 +1,71 @@
+\section{System Architecture}
+
+The heart failure prediction system was implemented using a modular, microservices-based architecture to ensure scalability, maintainability, and ease of integration with existing clinical systems. Fig. 1 illustrates the high-level system architecture.
+
+\subsection{Overall Architecture}
+
+The system consists of the following main components:
+
+\begin{itemize}
+    \item \textbf{Frontend Interface}: A web-based user interface implemented using React.js with responsive design for desktop and mobile devices.
+    \item \textbf{Backend API}: A RESTful API implemented using Flask (Python) that handles requests from the frontend and coordinates the prediction pipeline.
+    \item \textbf{Prediction Engine}: The core component that implements the hybrid prediction model, including the rule-based and machine learning components.
+    \item \textbf{Data Processing Module}: Handles data validation, preprocessing, and feature engineering.
+    \item \textbf{Temporal Forecasting Module}: Implements time series analysis and forecasting for longitudinal risk trajectories.
+    \item \textbf{Scenario Modeling Module}: Enables "what-if" analysis with counterfactual explanations and scenario-specific insights.
+    \item \textbf{Database}: A PostgreSQL database for storing patient data, model parameters, and prediction results.
+    \item \textbf{Model Registry}: A repository for storing and versioning trained models.
+    \item \textbf{Logging and Monitoring}: Components for tracking system performance and usage.
+\end{itemize}
+
+\subsection{Implementation Technologies}
+
+The system was implemented using the following technologies:
+
+\begin{itemize}
+    \item \textbf{Frontend}: React.js, Redux, D3.js for visualizations
+    \item \textbf{Backend}: Python 3.9, Flask 2.0.1, Gunicorn
+    \item \textbf{Machine Learning}: Scikit-learn 1.0.2, NumPy, Pandas
+    \item \textbf{Rule Engine}: Custom implementation in Python
+    \item \textbf{Database}: PostgreSQL 13
+    \item \textbf{Containerization}: Docker, Docker Compose
+    \item \textbf{CI/CD}: GitHub Actions
+    \item \textbf{Monitoring}: Prometheus, Grafana
+\end{itemize}
+
+\subsection{Deployment Architecture}
+
+The system was designed for flexible deployment options:
+
+\begin{itemize}
+    \item \textbf{On-premises deployment}: For healthcare institutions with strict data privacy requirements
+    \item \textbf{Cloud deployment}: Using Kubernetes for scalability and high availability
+    \item \textbf{Hybrid deployment}: With sensitive components on-premises and non-sensitive components in the cloud
+\end{itemize}
+
+For on-premises deployment, we implemented a Docker Compose configuration that allows for easy installation and updates. For cloud deployment, we provided Kubernetes manifests for deploying the system on major cloud providers (AWS, Azure, GCP).
+
+\subsection{Security Implementation}
+
+Security was a primary concern in the implementation. We implemented the following security measures:
+
+\begin{itemize}
+    \item \textbf{Authentication}: OAuth 2.0 with OpenID Connect for user authentication
+    \item \textbf{Authorization}: Role-based access control (RBAC) for different user types (clinicians, researchers, administrators)
+    \item \textbf{Data Encryption}: TLS for data in transit, AES-256 for data at rest
+    \item \textbf{Audit Logging}: Comprehensive logging of all system access and actions
+    \item \textbf{HIPAA Compliance}: Implementation of technical safeguards required for HIPAA compliance
+\end{itemize}
+
+\subsection{Integration Interfaces}
+
+To facilitate integration with existing clinical systems, we implemented the following interfaces:
+
+\begin{itemize}
+    \item \textbf{FHIR API}: For integration with EHR systems that support the FHIR standard
+    \item \textbf{HL7 Interface}: For integration with legacy EHR systems
+    \item \textbf{CSV Import/Export}: For batch processing of patient data
+    \item \textbf{REST API}: For integration with other clinical decision support systems
+\end{itemize}
+
+Fig. 2 shows the detailed component diagram of the system, illustrating the interactions between different modules and the data flow through the system.

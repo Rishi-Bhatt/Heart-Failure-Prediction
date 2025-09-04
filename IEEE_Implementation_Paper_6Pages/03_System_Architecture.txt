@@ -1,0 +1,60 @@
+\section{System Architecture}
+
+We implemented a modular, microservices-based architecture to ensure scalability, maintainability, and ease of integration with existing clinical systems. Fig. 1 illustrates the high-level system architecture.
+
+\subsection{Overall Architecture}
+
+The system consists of the following main components:
+
+\begin{itemize}
+    \item \textbf{Frontend Interface}: A web-based user interface implemented using React.js with responsive design.
+    \item \textbf{Backend API}: A RESTful API implemented using Flask (Python) that handles requests and coordinates the prediction pipeline.
+    \item \textbf{Prediction Engine}: The core component that implements the hybrid prediction model, combining rule-based and machine learning approaches.
+    \item \textbf{Data Processing Module}: Handles data validation, preprocessing, and feature engineering.
+    \item \textbf{Model Retraining Module}: Monitors model performance, detects drift, and retrains models with new patient data.
+    \item \textbf{Temporal Forecasting Module}: Implements time series analysis and forecasting for longitudinal risk trajectories.
+    \item \textbf{Counterfactual Engine}: Generates "what-if" scenarios showing how changes to risk factors affect predictions.
+    \item \textbf{Scenario Modeling Module}: Provides personalized recommendations based on counterfactual analysis.
+    \item \textbf{Database}: A PostgreSQL database for storing patient data, model parameters, and prediction results.
+\end{itemize}
+
+\subsection{Implementation Technologies}
+
+The system was implemented using the following technologies:
+
+\begin{itemize}
+    \item \textbf{Frontend}: React.js 17.0.2, Redux 4.1.2, D3.js 7.3.0 for visualizations
+    \item \textbf{Backend}: Python 3.9, Flask 2.0.1, Gunicorn 20.1.0
+    \item \textbf{Machine Learning}: Scikit-learn 1.0.2, NumPy 1.21.5, Pandas 1.3.5
+    \item \textbf{Rule Engine}: Custom implementation in Python
+    \item \textbf{Database}: PostgreSQL 13.4
+    \item \textbf{Containerization}: Docker 20.10.12, Docker Compose 2.2.3
+\end{itemize}
+
+\subsection{Data Flow}
+
+The data flow through the system follows these steps:
+
+\begin{enumerate}
+    \item User inputs patient data through the frontend interface
+    \item Data is validated and preprocessed by the data processing module
+    \item The hybrid prediction model generates a risk assessment
+    \item The temporal forecasting module projects future risk trajectories
+    \item The counterfactual engine generates "what-if" scenarios
+    \item The scenario modeling module provides personalized recommendations
+    \item Results are returned to the frontend for visualization
+    \item Patient data and predictions are stored in the database
+    \item The model retraining module periodically checks for drift and retrains models as needed
+\end{enumerate}
+
+\subsection{Deployment Options}
+
+The system was designed for flexible deployment options:
+
+\begin{itemize}
+    \item \textbf{Development environment}: Local Docker Compose setup for development and testing
+    \item \textbf{Testing environment}: Containerized deployment for integration testing
+    \item \textbf{Production prototype}: Single-server deployment with database replication
+\end{itemize}
+
+It's important to note that while we designed the system with production deployment in mind, the current implementation is a research prototype that would require additional engineering work for full-scale clinical deployment.

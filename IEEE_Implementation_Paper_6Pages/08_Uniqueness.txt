@@ -1,0 +1,33 @@
+\subsection{Unique Contributions}
+
+Our implementation makes several unique contributions to the field of heart failure prediction systems:
+
+\begin{itemize}
+    \item \textbf{Dynamic Hybrid Integration}: Unlike existing systems that use fixed weighting or simple averaging, our implementation dynamically adjusts the contribution of each model based on data quality, confidence scores, and model agreement. This approach ensures optimal performance across diverse patient populations and data availability scenarios.
+    
+    \item \textbf{Automated Model Retraining with Drift Detection}: While some systems support retraining, our implementation includes a sophisticated drift detection algorithm that automatically identifies when model performance degrades due to changes in patient populations or clinical practices. This ensures the model remains accurate over time without requiring manual intervention.
+    
+    \item \textbf{Age-Adjusted NT-proBNP Integration}: Our implementation goes beyond simple thresholding by incorporating age-adjusted reference ranges for NT-proBNP, non-linear transformations to handle the wide range of values, and interaction terms with other clinical parameters such as kidney function. This approach provides more nuanced risk assessment than existing systems.
+    
+    \item \textbf{Hybrid Temporal Forecasting}: Our temporal forecasting module combines model-based predictions with trend extrapolation and volatility-based confidence intervals. This hybrid approach provides more accurate and interpretable risk trajectories than purely statistical or machine learning approaches.
+    
+    \item \textbf{Context-Aware Counterfactual Explanations}: Unlike systems that provide static explanations, our implementation generates context-aware counterfactual explanations that adapt to different intervention scenarios. This provides more actionable insights for clinicians and patients.
+\end{itemize}
+
+Table VII compares our system with existing heart failure prediction systems across these unique features:
+
+\begin{table}[h]
+\caption{Comparison with Existing Heart Failure Prediction Systems}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{System} & \textbf{Dynamic} & \textbf{Auto} & \textbf{Age-Adj.} & \textbf{Hybrid} & \textbf{Context-} \\
+& \textbf{Hybrid} & \textbf{Retrain} & \textbf{NT-proBNP} & \textbf{Temporal} & \textbf{Aware} \\
+\hline
+Our System & Yes & Yes & Yes & Yes & Yes \\
+AHF-Net \cite{Patel2023} & No & No & No & No & No \\
+HF-Predict \cite{Januzzi2022} & Partial & No & Yes & No & No \\
+CardioPredict \cite{Ghassemi2020} & No & Partial & No & Yes & No \\
+MACE-RF \cite{Elshawi2020} & No & No & No & No & No \\
+\hline
+\end{tabular}
+\end{table}

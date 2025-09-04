@@ -1,0 +1,156 @@
+```
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Patient Data Input  +---->+ Data Preprocessing      +---->+ Feature Engineering    |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+                                                                       |
+                                                                       v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Longitudinal Data   <-----+ Patient History         <-----+ Temporal Feature       |
+| Storage             |     | Retrieval               |     | Extraction             |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+        |                                                              ^
+        v                                                              |
++---------------------+                                     +------------------------+
+|                     |                                     |                        |
+| Data Integration    +------------------------------------>+ Hybrid Model           |
+| Layer               |                                     | Prediction             |
+|                     |                                     |                        |
++---------------------+                                     +------------------------+
+                                                                       |
+                                                                       v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Risk Forecasting    <-----+ Trend Analysis &        <-----+ Current Risk           |
+| Module              |     | Extrapolation           |     | Assessment             |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+        |
+        v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Intervention Impact +---->+ Confidence Interval     +---->+ Explanation            |
+| Modeling            |     | Calculation             |     | Generation             |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+                                                                       |
+                                                                       v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Visualization       +---->+ User Interface          +---->+ Clinical Decision      |
+| Engine              |     | Presentation            |     | Support                |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+```
+
+## Detailed Process Flow Description
+
+### 1. Data Acquisition and Preprocessing
+
+**Patient Data Input**
+- Clinical parameters (age, gender, blood pressure, etc.)
+- Lab results (cholesterol, fasting blood sugar, etc.)
+- NT-proBNP biomarker values
+- ECG signal data
+- Prior cardiac event information
+
+**Data Preprocessing**
+- Missing value imputation
+- Outlier detection and handling
+- Data validation and quality checks
+- Format standardization
+
+**Feature Engineering**
+- NT-proBNP normalization with age-adjusted thresholds
+- Categorical feature encoding
+- Numerical feature scaling
+- Interaction term creation
+- ECG feature extraction
+
+### 2. Longitudinal Data Management
+
+**Temporal Feature Extraction**
+- Calculate slopes for key parameters
+- Measure volatility in measurements
+- Detect frequency of abnormal events
+- Identify sequence patterns
+
+**Patient History Retrieval**
+- Chronological organization of patient records
+- Filtering by time periods
+- Handling irregular time intervals
+
+**Longitudinal Data Storage**
+- Timestamped patient records
+- Efficient retrieval mechanisms
+- Data versioning
+
+### 3. Prediction Pipeline
+
+**Data Integration Layer**
+- Combines current data with historical trends
+- Integrates clinical, biomarker, and ECG data
+- Prepares feature vectors for models
+
+**Hybrid Model Prediction**
+- Rule-based clinical model (clinical guidelines)
+- Logistic regression model (statistical patterns)
+- Random Forest model (complex interactions)
+- Dynamic weighting based on data quality and confidence
+
+**Current Risk Assessment**
+- Immediate risk score calculation
+- Confidence estimation
+- Feature importance calculation
+
+### 4. Risk Forecasting
+
+**Trend Analysis & Extrapolation**
+- Parameter trend calculation
+- Historical pattern recognition
+- Volatility assessment
+
+**Risk Forecasting Module**
+- Projects risk at multiple time horizons (6 months, 1 year, 2 years)
+- Combines current risk with trend extrapolation
+- Applies time-dependent adjustments
+
+**Intervention Impact Modeling**
+- Simulates effects of different interventions
+- Models intervention timing and magnitude
+- Calculates combined intervention effects
+
+**Confidence Interval Calculation**
+- Uncertainty quantification
+- Calibration based on historical accuracy
+- Widening intervals for longer horizons
+
+### 5. Explanation and Visualization
+
+**Explanation Generation**
+- Feature contribution calculation
+- Clinical context integration
+- Personalized recommendations
+- Counterfactual explanations
+
+**Visualization Engine**
+- Risk trajectory plots
+- Parameter trend visualization
+- ECG abnormality highlighting
+- Confidence band rendering
+- Intervention comparison charts
+
+**User Interface Presentation**
+- Interactive dashboards
+- Temporal sliders
+- Intervention scenario selectors
+- Risk factor highlighting
+
+**Clinical Decision Support**
+- Treatment recommendation suggestions
+- Risk monitoring alerts
+- Follow-up scheduling guidance
+- Intervention prioritization

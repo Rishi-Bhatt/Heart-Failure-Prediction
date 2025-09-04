@@ -1,0 +1,24 @@
+% IEEE Conference Format Implementation Paper - 6 Pages
+
+% Title
+\title{Implementation of a Hybrid Heart Failure Prediction System with Automated Model Retraining}
+
+% Author information
+\author{
+\IEEEauthorblockN{Author 1\textsuperscript{1}, Author 2\textsuperscript{1}, Author 3\textsuperscript{2}}
+\IEEEauthorblockA{\textsuperscript{1}Department of Biomedical Informatics, University Name, City, Country}
+\IEEEauthorblockA{\textsuperscript{2}Department of Cardiology, Medical Center, City, Country}
+\IEEEauthorblockA{Email: author1@university.edu, author2@university.edu, author3@medical.edu}
+}
+
+\maketitle
+
+% Abstract
+\begin{abstract}
+This paper presents the implementation details of a hybrid heart failure prediction system that combines rule-based clinical knowledge with machine learning techniques. We describe the system architecture, data processing pipeline, and integration of multiple prediction models (rule-based, logistic regression, and Random Forest). The implementation incorporates several key features: (1) NT-proBNP biomarker integration with age-adjusted thresholds, (2) temporal forecasting for longitudinal risk trajectories, (3) scenario-specific insights for personalized recommendations, and (4) automated model retraining with drift detection. Performance evaluation on a dataset derived from MIMIC-III (n=5,432) demonstrates that our hybrid approach achieved improved discrimination (AUC 0.87, 95\% CI 0.84-0.90) compared to standalone approaches. The automated retraining module successfully detected model drift and maintained prediction accuracy as new patient data became available. Usability testing with 16 clinicians showed good system usability (SUS score 78/100) with highest ratings for clinical relevance. We discuss implementation challenges, limitations, and future work needed for clinical deployment. Source code is available at https://github.com/heart-failure-prediction-system.
+\end{abstract}
+
+% Keywords
+\begin{IEEEkeywords}
+heart failure prediction, hybrid model implementation, random forest, model retraining, clinical decision support, biomarker integration, temporal forecasting, scenario modeling, explainable AI
+\end{IEEEkeywords}

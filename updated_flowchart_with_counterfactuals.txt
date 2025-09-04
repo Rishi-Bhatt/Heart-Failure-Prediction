@@ -1,0 +1,128 @@
+```
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Patient Data Input  +---->+ Data Preprocessing      +---->+ Feature Engineering    |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+                                                                       |
+                                                                       v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Longitudinal Data   <-----+ Patient History         <-----+ Temporal Feature       |
+| Storage             |     | Retrieval               |     | Extraction             |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+        |                                                              ^
+        v                                                              |
++---------------------+                                     +------------------------+
+|                     |                                     |                        |
+| Data Integration    +------------------------------------>+ Hybrid Model           |
+| Layer               |                                     | Prediction             |
+|                     |                                     |                        |
++---------------------+                                     +------------------------+
+                                                                       |
+                                                                       v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Risk Forecasting    <-----+ Trend Analysis &        <-----+ Current Risk           |
+| Module              |     | Extrapolation           |     | Assessment             |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+        |                                                              |
+        v                                                              v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Intervention Impact +---->+ Confidence Interval     +---->+ Counterfactual         |
+| Modeling            |     | Calculation             |     | Generation             |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+                                                                       |
+                                                                       v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Multi-step          +---->+ Intervention            +---->+ Explanation            |
+| Intervention Paths  |     | Grouping                |     | Generation             |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+                                                                       |
+                                                                       v
++---------------------+     +-------------------------+     +------------------------+
+|                     |     |                         |     |                        |
+| Visualization       +---->+ User Interface          +---->+ Clinical Decision      |
+| Engine              |     | Presentation            |     | Support                |
+|                     |     |                         |     |                        |
++---------------------+     +-------------------------+     +------------------------+
+```
+
+## Detailed Process Flow Description with Counterfactual Component
+
+### 1-3. [Previous sections remain the same]
+
+### 4. Risk Forecasting and Counterfactual Analysis
+
+**Trend Analysis & Extrapolation**
+- Parameter trend calculation
+- Historical pattern recognition
+- Volatility assessment
+
+**Risk Forecasting Module**
+- Projects risk at multiple time horizons (6 months, 1 year, 2 years)
+- Combines current risk with trend extrapolation
+- Applies time-dependent adjustments
+
+**Intervention Impact Modeling**
+- Simulates effects of different interventions
+- Models intervention timing and magnitude
+- Calculates combined intervention effects
+
+**Confidence Interval Calculation**
+- Uncertainty quantification
+- Calibration based on historical accuracy
+- Widening intervals for longer horizons
+
+**Counterfactual Generation**
+- Identifies modifiable risk factors
+- Applies clinical constraints to ensure feasibility
+- Calculates minimum changes needed for risk reduction
+- Optimizes for proximity to original patient data
+
+**Multi-step Intervention Paths**
+- Creates progressive intervention sequences
+- Maps risk reduction at each step
+- Considers temporal dependencies between interventions
+- Provides realistic timelines for changes
+
+**Intervention Grouping**
+- Clusters related interventions (lifestyle, medication, monitoring)
+- Calculates synergistic effects
+- Assesses implementation difficulty
+- Prioritizes intervention groups by impact-to-effort ratio
+
+### 5. Explanation and Visualization
+
+**Explanation Generation**
+- Feature contribution calculation
+- Clinical context integration
+- Counterfactual comparison explanations
+- Personalized recommendations
+
+**Visualization Engine**
+- Risk trajectory plots
+- Parameter trend visualization
+- Counterfactual comparison charts
+- Intervention impact visualization
+- Effort-impact matrices
+
+**User Interface Presentation**
+- Interactive dashboards
+- Temporal sliders
+- Intervention scenario selectors
+- Risk factor highlighting
+- Counterfactual exploration tools
+
+**Clinical Decision Support**
+- Treatment recommendation suggestions
+- Risk monitoring alerts
+- Follow-up scheduling guidance
+- Intervention prioritization
+- Counterfactual-based treatment planning

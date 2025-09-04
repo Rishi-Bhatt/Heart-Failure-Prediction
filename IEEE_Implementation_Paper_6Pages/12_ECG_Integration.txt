@@ -1,0 +1,305 @@
+\section{ECG Data Integration}
+
+Our heart failure prediction system incorporates electrocardiogram (ECG) data to enhance prediction accuracy and provide additional clinical insights. This section details the implementation of ECG data integration.
+
+\subsection{ECG Feature Extraction}
+
+We implemented a comprehensive ECG feature extraction pipeline that processes both standard 12-lead ECGs and single-lead recordings:
+
+\begin{lstlisting}[caption=ECG Feature Extraction Pipeline, label=lst:ecg_features]
+def extract_ecg_features(ecg_data, sampling_rate=500):
+    """Extract features from ECG data"""
+    # Preprocess ECG signal
+    ecg_filtered = preprocess_ecg(ecg_data, sampling_rate)
+    
+    # Detect R-peaks
+    r_peaks = detect_r_peaks(ecg_filtered, sampling_rate)
+    
+    # Calculate heart rate and heart rate variability
+    hr, hrv = calculate_heart_rate(r_peaks, sampling_rate)
+    
+    # Extract morphological features
+    qrs_width = calculate_qrs_width(ecg_filtered, r_peaks, sampling_rate)
+    st_elevation = calculate_st_elevation(ecg_filtered, r_peaks, sampling_rate)
+    t_wave_amplitude = calculate_t_wave_amplitude(ecg_filtered, r_peaks, sampling_rate)
+    
+    # Extract frequency domain features
+    freq_features = calculate_frequency_features(ecg_filtered, sampling_rate)
+    
+    # Combine all features
+    features = {
+        'heart_rate': hr,
+        'heart_rate_variability': hrv,
+        'qrs_width': qrs_width,
+        'st_elevation': st_elevation,
+        't_wave_amplitude': t_wave_amplitude,
+        'lf_hf_ratio': freq_features['lf_hf_ratio'],
+        'power_high_frequency': freq_features['power_high_frequency']
+    }
+    
+    return features
+\end{lstlisting}
+
+The extracted features include both time-domain features (heart rate, QRS width, ST elevation) and frequency-domain features (LF/HF ratio, power in high-frequency band), which have been shown to be predictive of heart failure in clinical studies.
+
+\subsection{ECG Abnormality Detection}
+
+We implemented an algorithm to detect specific ECG abnormalities associated with heart failure:
+
+\begin{lstlisting}[caption=ECG Abnormality Detection, label=lst:ecg_abnormality]
+def detect_ecg_abnormalities(ecg_features):
+    """Detect ECG abnormalities associated with heart failure"""
+    abnormalities = []
+    
+    # Left ventricular hypertrophy detection
+    if ecg_features['qrs_width'] > 120:  # ms
+        abnormalities.append({
+            'name': 'Left ventricular hypertrophy',
+            'confidence': min(1.0, (ecg_features['qrs_width'] - 120) / 30),
+            'description': 'Widened QRS complex suggesting ventricular hypertrophy'
+        })
+    
+    # ST segment abnormalities
+    if abs(ecg_features['st_elevation']) > 0.1:  # mV
+        abnormalities.append({
+            'name': 'ST segment abnormality',
+            'confidence': min(1.0, abs(ecg_features['st_elevation']) / 0.2),
+            'description': 'ST segment deviation suggesting myocardial ischemia or injury'
+        })
+    
+    # T-wave abnormalities
+    if ecg_features['t_wave_amplitude'] < 0.1:  # mV
+        abnormalities.append({
+            'name': 'T-wave abnormality',
+            'confidence': min(1.0, (0.1 - ecg_features['t_wave_amplitude']) / 0.1),
+            'description': 'Flattened T-waves suggesting electrolyte disturbances or ischemia'
+        })
+    
+    # Heart rate abnormalities
+    if ecg_features['heart_rate'] > 100:  # bpm
+        abnormalities.append({
+            'name': 'Tachycardia',
+            'confidence': min(1.0, (ecg_features['heart_rate'] - 100) / 20),
+            'description': 'Elevated heart rate suggesting cardiac stress'
+        })
+    elif ecg_features['heart_rate'] < 60:  # bpm
+        abnormalities.append({
+            'name': 'Bradycardia',
+            'confidence': min(1.0, (60 - ecg_features['heart_rate']) / 10),
+            'description': 'Low heart rate potentially indicating conduction abnormalities'
+        })
+    
+    # Heart rate variability assessment
+    if ecg_features['heart_rate_variability'] < 20:  # ms
+        abnormalities.append({
+            'name': 'Reduced heart rate variability',
+            'confidence': min(1.0, (20 - ecg_features['heart_rate_variability']) / 10),
+            'description': 'Reduced HRV suggesting autonomic dysfunction'
+        })
+    
+    # Autonomic balance assessment
+    if ecg_features['lf_hf_ratio'] > 2.5:
+        abnormalities.append({
+            'name': 'Sympathetic predominance',
+            'confidence': min(1.0, (ecg_features['lf_hf_ratio'] - 2.5) / 1.5),
+            'description': 'Elevated LF/HF ratio suggesting sympathetic predominance'
+        })
+    
+    return abnormalities
+\end{lstlisting}
+
+This algorithm detects abnormalities based on established clinical thresholds and provides confidence scores for each detected abnormality.
+
+\subsection{ECG Visualization}
+
+We implemented an interactive ECG visualization component that highlights abnormalities and their temporal evolution:
+
+\begin{lstlisting}[caption=ECG Visualization Implementation, label=lst:ecg_viz]
+class ECGVisualization:
+    """Interactive ECG visualization with abnormality highlighting"""
+    
+    def __init__(self, canvas_width=800, canvas_height=400):
+        self.canvas_width = canvas_width
+        self.canvas_height = canvas_height
+        self.scale_x = 0.2  # 0.2 mm/sample
+        self.scale_y = 10.0  # 10 mm/mV
+        
+    def render_ecg(self, ecg_data, abnormalities=None):
+        """Render ECG with highlighted abnormalities"""
+        # Create SVG canvas
+        svg = f'<svg width="{self.canvas_width}" height="{self.canvas_height}" ' \
+              f'viewBox="0 0 {self.canvas_width} {self.canvas_height}">'
+        
+        # Add grid
+        svg += self._create_grid()
+        
+        # Add ECG trace
+        svg += self._create_ecg_trace(ecg_data)
+        
+        # Add abnormality highlights if provided
+        if abnormalities:
+            svg += self._highlight_abnormalities(ecg_data, abnormalities)
+        
+        # Close SVG
+        svg += '</svg>'
+        
+        return svg
+    
+    def _create_grid(self):
+        """Create ECG grid (1mm small squares, 5mm large squares)"""
+        grid_svg = '<g class="ecg-grid">'
+        
+        # Small grid lines (1mm)
+        for i in range(0, self.canvas_width, 5):
+            grid_svg += f'<line x1="{i}" y1="0" x2="{i}" y2="{self.canvas_height}" ' \
+                        f'stroke="#f0f0f0" stroke-width="0.5" />'
+        
+        for i in range(0, self.canvas_height, 5):
+            grid_svg += f'<line x1="0" y1="{i}" x2="{self.canvas_width}" y2="{i}" ' \
+                        f'stroke="#f0f0f0" stroke-width="0.5" />'
+        
+        # Large grid lines (5mm)
+        for i in range(0, self.canvas_width, 25):
+            grid_svg += f'<line x1="{i}" y1="0" x2="{i}" y2="{self.canvas_height}" ' \
+                        f'stroke="#e0e0e0" stroke-width="1" />'
+        
+        for i in range(0, self.canvas_height, 25):
+            grid_svg += f'<line x1="0" y1="{i}" x2="{self.canvas_width}" y2="{i}" ' \
+                        f'stroke="#e0e0e0" stroke-width="1" />'
+        
+        grid_svg += '</g>'
+        return grid_svg
+    
+    def _create_ecg_trace(self, ecg_data):
+        """Create ECG trace path"""
+        # Calculate baseline (center of canvas)
+        baseline = self.canvas_height / 2
+        
+        # Create path
+        path = '<path class="ecg-trace" d="M'
+        
+        for i, value in enumerate(ecg_data):
+            x = i * self.scale_x
+            y = baseline - value * self.scale_y
+            
+            if i == 0:
+                path += f"{x},{y}"
+            else:
+                path += f" L{x},{y}"
+            
+            # Break if we exceed canvas width
+            if x > self.canvas_width:
+                break
+        
+        path += '" stroke="#007bff" stroke-width="1.5" fill="none" />'
+        return path
+    
+    def _highlight_abnormalities(self, ecg_data, abnormalities):
+        """Highlight ECG abnormalities"""
+        highlights = '<g class="abnormality-highlights">'
+        
+        for abnormality in abnormalities:
+            if 'region' in abnormality:
+                start_idx = abnormality['region']['start']
+                end_idx = abnormality['region']['end']
+                
+                # Calculate coordinates
+                x1 = start_idx * self.scale_x
+                x2 = end_idx * self.scale_x
+                
+                # Create highlight rectangle
+                highlights += f'<rect x="{x1}" y="0" width="{x2-x1}" height="{self.canvas_height}" ' \
+                             f'fill="rgba(255,0,0,0.1)" stroke="none" />'
+                
+                # Add label
+                highlights += f'<text x="{x1 + 5}" y="20" fill="#d9534f" font-size="12">' \
+                             f'{abnormality["name"]}' \
+                             f'</text>'
+        
+        highlights += '</g>'
+        return highlights
+\end{lstlisting}
+
+This visualization component creates an interactive SVG representation of the ECG with highlighted abnormalities, allowing clinicians to visually inspect the ECG data and understand its contribution to the heart failure risk prediction.
+
+\subsection{Integration with Prediction Model}
+
+ECG features are integrated into the prediction model through a specialized ECG module:
+
+\begin{lstlisting}[caption=ECG Integration with Prediction Model, label=lst:ecg_integration]
+def integrate_ecg_features(patient_data, prediction_result):
+    """Integrate ECG features into the prediction model"""
+    # Check if ECG data is available
+    if 'ecg_data' not in patient_data or not patient_data['ecg_data']:
+        return prediction_result
+    
+    # Extract ECG features
+    ecg_features = extract_ecg_features(
+        patient_data['ecg_data'], 
+        patient_data.get('ecg_sampling_rate', 500)
+    )
+    
+    # Detect abnormalities
+    abnormalities = detect_ecg_abnormalities(ecg_features)
+    
+    # Calculate ECG risk score
+    ecg_risk_score = calculate_ecg_risk_score(ecg_features, abnormalities)
+    
+    # Adjust prediction based on ECG risk score
+    original_prediction = prediction_result['prediction']
+    original_confidence = prediction_result['confidence']
+    
+    # Calculate ECG weight based on quality and abnormalities
+    ecg_weight = min(0.3, 0.1 * len(abnormalities))
+    
+    # Combine predictions
+    adjusted_prediction = (1 - ecg_weight) * original_prediction + ecg_weight * ecg_risk_score
+    
+    # Update prediction result
+    prediction_result['prediction'] = adjusted_prediction
+    prediction_result['ecg_contribution'] = {
+        'features': ecg_features,
+        'abnormalities': abnormalities,
+        'risk_score': ecg_risk_score,
+        'weight': ecg_weight
+    }
+    
+    return prediction_result
+
+def calculate_ecg_risk_score(ecg_features, abnormalities):
+    """Calculate risk score based on ECG features and abnormalities"""
+    # Base score
+    risk_score = 0.0
+    
+    # Add contribution from each abnormality
+    for abnormality in abnormalities:
+        risk_score += abnormality['confidence'] * get_abnormality_weight(abnormality['name'])
+    
+    # Add contribution from continuous features
+    if ecg_features['qrs_width'] > 100:
+        risk_score += 0.05 * (ecg_features['qrs_width'] - 100) / 20
+    
+    if ecg_features['heart_rate_variability'] < 50:
+        risk_score += 0.05 * (50 - ecg_features['heart_rate_variability']) / 30
+    
+    # Normalize to [0, 1] range
+    risk_score = min(1.0, risk_score)
+    
+    return risk_score
+
+def get_abnormality_weight(abnormality_name):
+    """Get weight for specific ECG abnormality"""
+    weights = {
+        'Left ventricular hypertrophy': 0.3,
+        'ST segment abnormality': 0.25,
+        'T-wave abnormality': 0.2,
+        'Tachycardia': 0.15,
+        'Bradycardia': 0.1,
+        'Reduced heart rate variability': 0.2,
+        'Sympathetic predominance': 0.15
+    }
+    
+    return weights.get(abnormality_name, 0.1)
+\end{lstlisting}
+
+This integration approach allows the ECG data to contribute to the final prediction while maintaining the system's robustness when ECG data is not available.

@@ -1,0 +1,13 @@
+{
+  "age": 0.15,
+  "gender": 0.05,
+  "blood_pressure": 0.1,
+  "cholesterol": 0.1,
+  "fasting_blood_sugar": 0.05,
+  "max_heart_rate": 0.15,
+  "exercise_induced_angina": 0.1,
+  "st_depression": 0.1,
+  "slope_of_st": 0.05,
+  "number_of_major_vessels": 0.1,
+  "thalassemia": 0.05
+}

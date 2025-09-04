@@ -1,0 +1,183 @@
+\section{Hybrid Integration Layer}
+
+The hybrid integration layer is a key innovation in our implementation, combining predictions from the rule-based and machine learning models to leverage the strengths of both approaches.
+
+\subsection{Integration Architecture}
+
+We implemented the hybrid integration layer as a separate module with the following components:
+
+\begin{itemize}
+    \item \textbf{Prediction Aggregator}: Combines predictions from multiple models
+    \item \textbf{Confidence Estimator}: Calculates confidence scores for each model
+    \item \textbf{Adaptive Weighting}: Dynamically adjusts model weights based on confidence
+    \item \textbf{Uncertainty Quantification}: Estimates prediction uncertainty
+\end{itemize}
+
+Fig. 3 illustrates the architecture of the hybrid integration layer.
+
+\subsection{Confidence Estimation}
+
+We implemented model-specific confidence estimation methods:
+
+\begin{lstlisting}[caption=Confidence Estimation Implementation, label=lst:confidence]
+def estimate_confidence(model_type, model, prediction, patient_data):
+    if model_type == 'random_forest':
+        # For Random Forest, use prediction probabilities
+        # and out-of-bag error estimates
+        proba = model.predict_proba(patient_data)[0]
+        max_proba = np.max(proba)
+        oob_error = 1 - model.oob_score_
+        
+        # Higher confidence when probability is far from 0.5
+        # and out-of-bag error is low
+        confidence = max_proba * (1 - oob_error)
+        
+        # Adjust confidence based on data completeness
+        missing_ratio = calculate_missing_ratio(patient_data)
+        confidence = confidence * (1 - 0.5 * missing_ratio)
+        
+        return confidence
+        
+    elif model_type == 'rule_based':
+        # For rule-based model, use rule coverage
+        # and evidence strength
+        applicable_rules = model.get_applicable_rules(patient_data)
+        total_rules = len(model.rules)
+        
+        # Calculate rule coverage
+        coverage = len(applicable_rules) / total_rules
+        
+        # Calculate average evidence strength
+        evidence_strength = np.mean([
+            rule.evidence_strength 
+            for rule in applicable_rules
+        ])
+        
+        # Combine coverage and evidence strength
+        confidence = coverage * evidence_strength
+        
+        return confidence
+\end{lstlisting}
+
+\subsection{Adaptive Weighting Implementation}
+
+The adaptive weighting mechanism dynamically adjusts the contribution of each model based on confidence scores:
+
+\begin{algorithm}
+\caption{Adaptive Weighting Algorithm}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Patient data, Models
+\STATE \textbf{Output:} Final prediction
+
+\STATE \textbf{function} HybridPredict(patientData, models)
+    \STATE predictions $\gets$ []
+    \STATE confidences $\gets$ []
+    
+    \FOR{each model in models}
+        \STATE prediction $\gets$ model.predict(patientData)
+        \STATE confidence $\gets$ EstimateConfidence(model.type, model, prediction, patientData)
+        \STATE predictions.append(prediction)
+        \STATE confidences.append(confidence)
+    \ENDFOR
+    
+    \STATE // Normalize confidences
+    \STATE totalConfidence $\gets$ sum(confidences)
+    \STATE weights $\gets$ [conf / totalConfidence for conf in confidences]
+    
+    \STATE // Weighted average prediction
+    \STATE finalPrediction $\gets$ 0
+    \FOR{i = 0 to length(predictions) - 1}
+        \STATE finalPrediction $\gets$ finalPrediction + predictions[i] * weights[i]
+    \ENDFOR
+    
+    \RETURN finalPrediction
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Bayesian Model Averaging}
+
+For uncertainty quantification, we implemented Bayesian Model Averaging (BMA):
+
+\begin{lstlisting}[caption=Bayesian Model Averaging Implementation, label=lst:bma]
+def bayesian_model_averaging(predictions, confidences, patient_data):
+    # Calculate model weights using Bayesian approach
+    log_weights = []
+    for i, (pred, conf) in enumerate(zip(predictions, confidences)):
+        # Calculate log likelihood based on confidence
+        log_likelihood = np.log(conf)
+        
+        # Add prior (can be adjusted based on model performance)
+        log_prior = model_priors[i]
+        
+        # Log posterior is proportional to log likelihood + log prior
+        log_posterior = log_likelihood + log_prior
+        log_weights.append(log_posterior)
+    
+    # Normalize weights (using log-sum-exp trick for numerical stability)
+    max_log_weight = max(log_weights)
+    log_weights = [lw - max_log_weight for lw in log_weights]
+    weights = [np.exp(lw) for lw in log_weights]
+    sum_weights = sum(weights)
+    weights = [w / sum_weights for w in weights]
+    
+    # Calculate weighted average prediction
+    mean_prediction = sum(p * w for p, w in zip(predictions, weights))
+    
+    # Calculate prediction variance
+    variance = sum(w * (p - mean_prediction)**2 
+                  for p, w in zip(predictions, weights))
+    
+    # Calculate 95% confidence interval
+    ci_lower = mean_prediction - 1.96 * np.sqrt(variance)
+    ci_upper = mean_prediction + 1.96 * np.sqrt(variance)
+    
+    return {
+        'prediction': mean_prediction,
+        'variance': variance,
+        'ci_lower': max(0, ci_lower),
+        'ci_upper': min(1, ci_upper),
+        'weights': weights
+    }
+\end{lstlisting}
+
+\subsection{Continuous Learning Implementation}
+
+We implemented a continuous learning mechanism to automatically update model weights based on performance:
+
+\begin{lstlisting}[caption=Continuous Learning Implementation, label=lst:continuous_learning]
+def update_model_weights(models, historical_performance):
+    # Calculate performance metrics for each model
+    metrics = {}
+    for model_name, model in models.items():
+        metrics[model_name] = {
+            'auc': calculate_auc(model, historical_performance),
+            'brier': calculate_brier_score(model, historical_performance),
+            'calibration': calculate_calibration(model, historical_performance)
+        }
+    
+    # Calculate composite score
+    scores = {}
+    for model_name, metric in metrics.items():
+        # Higher AUC is better, lower Brier score is better
+        scores[model_name] = metric['auc'] - metric['brier'] * 2
+    
+    # Normalize scores to get weights
+    total_score = sum(scores.values())
+    weights = {model: score / total_score 
+              for model, score in scores.items()}
+    
+    return weights
+\end{lstlisting}
+
+\subsection{Integration with Clinical Workflow}
+
+The hybrid integration layer was designed to seamlessly integrate with clinical workflows:
+
+\begin{itemize}
+    \item \textbf{Real-time prediction}: Optimized for low-latency predictions during clinical encounters
+    \item \textbf{Batch processing}: Support for processing multiple patients for population health management
+    \item \textbf{Confidence thresholds}: Configurable thresholds for escalating uncertain predictions for clinical review
+    \item \textbf{Explanation generation}: Automatic generation of explanations for predictions
+\end{itemize}
+
+The integration with clinical workflows was implemented through a RESTful API that could be called from EHR systems or clinical decision support applications.

@@ -1,0 +1,370 @@
+\section{NT-proBNP Integration and Temporal Forecasting}
+
+\subsection{NT-proBNP Integration Implementation}
+
+NT-proBNP is a critical biomarker for heart failure prediction. We implemented a comprehensive approach to integrate NT-proBNP data into our prediction system.
+
+\subsubsection{Age-Adjusted Thresholds}
+
+Based on clinical guidelines, we implemented age-adjusted thresholds for NT-proBNP:
+
+\begin{lstlisting}[caption=Age-Adjusted NT-proBNP Thresholds, label=lst:ntprobnp_thresholds]
+def get_age_adjusted_threshold(age):
+    if age < 50:
+        return 450  # pg/mL
+    elif age <= 75:
+        return 900  # pg/mL
+    else:
+        return 1800  # pg/mL
+\end{lstlisting}
+
+\subsubsection{Non-Linear Transformation}
+
+To handle the wide range and right-skewed distribution of NT-proBNP values, we implemented non-linear transformations:
+
+\begin{lstlisting}[caption=NT-proBNP Transformation, label=lst:ntprobnp_transform]
+def transform_nt_probnp(value, age):
+    # Log transformation for machine learning model
+    log_value = np.log1p(value)
+
+    # Get age-adjusted threshold
+    threshold = get_age_adjusted_threshold(age)
+
+    # Sigmoid normalization for rule-based model
+    normalized_value = 1.0 / (1.0 + np.exp(-0.003 * (value - threshold)))
+
+    return {
+        'log_value': log_value,
+        'normalized_value': normalized_value,
+        'threshold': threshold,
+        'ratio_to_threshold': value / threshold
+    }
+\end{lstlisting}
+
+\subsubsection{Interaction Terms}
+
+We implemented interaction terms between NT-proBNP and other clinical variables:
+
+\begin{lstlisting}[caption=NT-proBNP Interaction Terms, label=lst:ntprobnp_interactions]
+def create_nt_probnp_interactions(data):
+    if 'nt_probnp' not in data or data['nt_probnp'] is None:
+        return {}
+
+    interactions = {}
+
+    # NT-proBNP and age interaction
+    if 'age' in data:
+        interactions['nt_probnp_age'] = (
+            data['nt_probnp'] * data['age'] / 100
+        )
+
+    # NT-proBNP and kidney function interaction
+    if 'egfr' in data:
+        # Lower eGFR (kidney function) affects NT-proBNP clearance
+        kidney_factor = 90 / max(15, data['egfr'])
+        interactions['nt_probnp_kidney'] = (
+            data['nt_probnp'] / kidney_factor
+        )
+
+    # NT-proBNP and heart failure symptoms interaction
+    if 'dyspnea' in data:
+        # Dyspnea severity (0-3 scale)
+        interactions['nt_probnp_symptoms'] = (
+            data['nt_probnp'] * (1 + data['dyspnea'])
+        )
+
+    return interactions
+\end{lstlisting}
+
+\subsubsection{Dynamic Risk Threshold}
+
+We implemented a dynamic risk threshold that adjusts based on NT-proBNP levels:
+
+\begin{lstlisting}[caption=Dynamic Risk Threshold, label=lst:dynamic_threshold]
+def calculate_dynamic_threshold(patient_data):
+    base_threshold = 0.15  # Default risk threshold
+
+    if 'nt_probnp' not in patient_data:
+        return base_threshold
+
+    # Get NT-proBNP data
+    nt_probnp = patient_data['nt_probnp']
+    age = patient_data.get('age', 65)  # Default to 65 if age missing
+
+    # Transform NT-proBNP
+    transformed = transform_nt_probnp(nt_probnp, age)
+
+    # Adjust threshold based on NT-proBNP level
+    alpha = 0.5  # Scaling factor
+    adjusted_threshold = base_threshold * (
+        1 + alpha * transformed['normalized_value']
+    )
+
+    # Ensure threshold is in reasonable range
+    adjusted_threshold = min(max(0.05, adjusted_threshold), 0.3)
+
+    return adjusted_threshold
+\end{lstlisting}
+
+\subsection{Temporal Forecasting Implementation}
+
+We implemented a temporal forecasting module to predict future risk trajectories based on patient history. This module enables longitudinal risk monitoring and proactive intervention planning.
+
+\subsubsection{Mathematical Formulation of Temporal Forecasting}
+
+Our temporal forecasting approach is based on a hybrid model that combines machine learning predictions with time series analysis. The mathematical formulation is as follows:
+
+Let $H = \{(t_1, \mathbf{x}_1, r_1), (t_2, \mathbf{x}_2, r_2), \ldots, (t_n, \mathbf{x}_n, r_n)\}$ be a patient's history, where:
+\begin{itemize}
+    \item $t_i$ is the timestamp of the $i$-th visit
+    \item $\mathbf{x}_i$ is the feature vector at time $t_i$
+    \item $r_i$ is the risk assessment at time $t_i$
+\end{itemize}
+
+We aim to predict future risk values $\{r_{n+1}, r_{n+2}, \ldots, r_{n+h}\}$ at future time points $\{t_{n+1}, t_{n+2}, \ldots, t_{n+h}\}$, where $h$ is the forecast horizon.
+
+We extract temporal features from the patient history, including:
+
+1. **Risk Slope**: The rate of change in risk over time
+\begin{equation}
+    s_r = \frac{r_n - r_1}{t_n - t_1} \quad \text{if } t_n > t_1 \text{ else } 0
+\end{equation}
+
+2. **Risk Volatility**: The standard deviation of risk assessments
+\begin{equation}
+    \sigma_r = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (r_i - \bar{r})^2} \quad \text{where } \bar{r} \text{ is the mean risk}
+\end{equation}
+
+3. **Feature Velocities**: The rate of change in key features
+\begin{equation}
+    v_j = \frac{x_{n,j} - x_{n-1,j}}{t_n - t_{n-1}} \quad \text{if } t_n > t_{n-1} \text{ else } 0
+\end{equation}
+where $x_{i,j}$ is the value of feature $j$ at time $t_i$.
+
+For each future time point $t_{n+i}$, we generate a forecast using a weighted combination of model prediction and trend extrapolation:
+
+\begin{equation}
+    r_{n+i} = (1 - w_i) \cdot r_{\text{base}} + w_i \cdot r_{\text{trend}}(i)
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $r_{\text{base}}$ is the base model prediction using the latest features $\mathbf{x}_n$
+    \item $r_{\text{trend}}(i)$ is the trend-based prediction for horizon $i$
+    \item $w_i$ is the weight for horizon $i$, defined as $w_i = \min(w_{\max}, i \cdot w_{\text{step}})$
+\end{itemize}
+
+The trend-based prediction is calculated as:
+
+\begin{equation}
+    r_{\text{trend}}(i) = r_n + (s_r \cdot \Delta t_i)
+\end{equation}
+
+where $\Delta t_i$ is the time difference between $t_{n+i}$ and $t_n$.
+
+To quantify uncertainty, we calculate confidence intervals based on historical volatility:
+
+\begin{equation}
+    CI_{n+i} = [\max(0, r_{n+i} - 1.96 \cdot \sigma_r \cdot \sqrt{i}), \min(1, r_{n+i} + 1.96 \cdot \sigma_r \cdot \sqrt{i})]
+\end{equation}
+
+The factor $\sqrt{i}$ accounts for increasing uncertainty with longer forecast horizons, following the principles of Brownian motion in time series forecasting.
+
+\subsubsection{Temporal Feature Extraction}
+
+The temporal feature extraction process was implemented as follows:
+
+\begin{lstlisting}[caption=Temporal Feature Extraction, label=lst:temporal_features]
+def extract_temporal_features(patient_history):
+    features = {}
+
+    # Sort history by timestamp
+    sorted_history = sorted(
+        patient_history,
+        key=lambda x: x.get('timestamp', '')
+    )
+
+    if len(sorted_history) < 2:
+        return features
+
+    # Extract risk values and timestamps
+    risk_values = []
+    timestamps = []
+
+    for visit in sorted_history:
+        if ('risk_assessment' in visit and
+            'prediction' in visit['risk_assessment']):
+            risk_values.append(
+                float(visit['risk_assessment']['prediction'])
+            )
+            timestamps.append(
+                datetime.fromisoformat(visit['timestamp'])
+            )
+
+    if len(risk_values) < 2:
+        return features
+
+    # Calculate days between measurements
+    days_elapsed = (timestamps[-1] - timestamps[0]).days
+
+    if days_elapsed > 0:
+        # Risk change per day
+        features['risk_slope'] = (
+            (risk_values[-1] - risk_values[0]) / days_elapsed
+        )
+
+        # Risk volatility (standard deviation)
+        if len(risk_values) >= 3:
+            features['risk_volatility'] = np.std(risk_values)
+
+        # Calculate feature velocities for key measurements
+        for feature in KEY_FEATURES:
+            if (feature in sorted_history[-1] and
+                feature in sorted_history[-2]):
+                latest_value = float(sorted_history[-1][feature])
+                previous_value = float(sorted_history[-2][feature])
+                time_diff = (timestamps[-1] - timestamps[-2]).days
+
+                if time_diff > 0:
+                    features[f'{feature}_velocity'] = (
+                        (latest_value - previous_value) / time_diff
+                    )
+
+    return features
+\end{lstlisting}
+
+\subsubsection{Forecast Generation}
+
+The forecast generation process was implemented as follows:
+
+\begin{algorithm}
+\caption{Forecast Generation Algorithm}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Patient history, Horizon (months)
+\STATE \textbf{Output:} Forecast data
+
+\STATE \textbf{function} GenerateForecast(patientHistory, horizon)
+    \STATE // Extract features from patient history
+    \STATE features $\gets$ ExtractFeatures(patientHistory)
+    \STATE temporalFeatures $\gets$ ExtractTemporalFeatures(patientHistory)
+    \STATE features.update(temporalFeatures)
+
+    \STATE // Get current risk assessment
+    \STATE currentRisk $\gets$ PredictCurrentRisk(features)
+
+    \STATE // Get base prediction from model
+    \STATE basePrediction $\gets$ PredictBaseRisk(features)
+
+    \STATE // Get risk slope from temporal features
+    \STATE riskSlope $\gets$ temporalFeatures.get('risk\_slope', 0)
+
+    \STATE // Initialize forecast arrays
+    \STATE forecastValues $\gets$ []
+    \STATE forecastTimestamps $\gets$ []
+    \STATE confidenceValues $\gets$ []
+
+    \STATE // Get latest timestamp
+    \STATE latestTimestamp $\gets$ GetLatestTimestamp(patientHistory)
+
+    \FOR{i = 1 to horizon}
+        \STATE // Calculate forecast date (30 days per month)
+        \STATE forecastDate $\gets$ latestTimestamp + timedelta(days=i * 30)
+
+        \STATE // Calculate trend weight (increases with horizon)
+        \STATE trendWeight $\gets$ min(0.7, i * 0.1)
+        \STATE modelWeight $\gets$ 1 - trendWeight
+
+        \STATE // Calculate trend prediction
+        \STATE trendPrediction $\gets$ currentRisk + (riskSlope * i * 30)
+
+        \STATE // Apply volatility adjustment for confidence intervals
+        \IF{'risk\_volatility' in temporalFeatures}
+            \STATE volatilityFactor $\gets$ temporalFeatures['risk\_volatility'] * sqrt(i)
+            \STATE lowerBound $\gets$ max(0, trendPrediction - 1.96 * volatilityFactor)
+            \STATE upperBound $\gets$ min(1, trendPrediction + 1.96 * volatilityFactor)
+        \ELSE
+            \STATE lowerBound $\gets$ max(0, trendPrediction - 0.1 * i)
+            \STATE upperBound $\gets$ min(1, trendPrediction + 0.1 * i)
+        \ENDIF
+
+        \STATE // Combine model prediction and trend
+        \STATE forecastValue $\gets$ (modelWeight * basePrediction) + (trendWeight * trendPrediction)
+
+        \STATE // Store forecast values
+        \STATE forecastValues.append(forecastValue)
+        \STATE forecastTimestamps.append(forecastDate.isoformat())
+        \STATE confidenceValues.append([lowerBound, upperBound])
+    \ENDFOR
+
+    \RETURN \{
+        \STATE \quad 'current\_risk': currentRisk,
+        \STATE \quad 'forecast\_values': forecastValues,
+        \STATE \quad 'forecast\_timestamps': forecastTimestamps,
+        \STATE \quad 'confidence\_values': confidenceValues
+    \STATE \}
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Trend Analysis}
+
+We implemented trend analysis to provide qualitative descriptions of risk trajectories:
+
+\begin{lstlisting}[caption=Trend Analysis Implementation, label=lst:trend_analysis]
+def analyze_trend(forecast_values):
+    if len(forecast_values) < 3:
+        return "Insufficient data for trend analysis"
+
+    # Divide forecast into thirds
+    n = len(forecast_values)
+    first_third = forecast_values[:n//3]
+    last_third = forecast_values[-n//3:]
+
+    # Calculate average risk in first and last third
+    avg_first = sum(first_third) / len(first_third)
+    avg_last = sum(last_third) / len(last_third)
+
+    # Calculate percent change
+    percent_change = ((avg_last - avg_first) / avg_first) * 100
+
+    # Determine trend direction
+    if percent_change > 10:
+        trend = "Increasing"
+    elif percent_change < -10:
+        trend = "Decreasing"
+    else:
+        trend = "Stable"
+
+    # Calculate volatility
+    volatility = np.std(forecast_values)
+
+    # Determine trend stability
+    if volatility > 0.05:
+        stability = "with fluctuations"
+    else:
+        stability = "consistently"
+
+    # Generate trend description
+    description = f"Risk is {trend} {stability}"
+
+    # Add peak information
+    peak_index = np.argmax(forecast_values)
+    if peak_index > 0 and peak_index < len(forecast_values) - 1:
+        peak_month = peak_index + 1
+        description += f", with peak risk at month {peak_month}"
+
+    return description
+\end{lstlisting}
+
+\subsubsection{Visualization Implementation}
+
+We implemented interactive visualizations for temporal forecasts:
+
+\begin{itemize}
+    \item \textbf{Line charts}: Showing risk trajectory over time
+    \item \textbf{Confidence bands}: Visualizing prediction uncertainty
+    \item \textbf{Trend indicators}: Visual cues for increasing/decreasing trends
+    \item \textbf{Interactive tooltips}: Detailed information on hover
+    \item \textbf{Scenario comparison}: Side-by-side visualization of different scenarios
+\end{itemize}
+
+The visualizations were implemented using D3.js with responsive design for different screen sizes.

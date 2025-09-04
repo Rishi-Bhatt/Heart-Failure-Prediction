@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CORS Test</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 10px 0;
+      }
+      pre {
+        background-color: #f5f5f5;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CORS Test for Heart Failure Prediction System</h1>
+
+    <h2>Test API Connection</h2>
+    <button id="testButton">Test API Connection</button>
+    <pre id="testResult">Results will appear here...</pre>
+
+    <h2>Test Prediction API</h2>
+    <button id="predictButton">Test Prediction API</button>
+    <pre id="predictResult">Results will appear here...</pre>
+
+    <script>
+      document
+        .getElementById("testButton")
+        .addEventListener("click", async () => {
+          const resultElement = document.getElementById("testResult");
+          resultElement.textContent = "Testing API connection...";
+
+          try {
+            const response = await fetch("http://localhost:8000/api/test", {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+
+            const data = await response.json();
+            resultElement.textContent = JSON.stringify(data, null, 2);
+          } catch (error) {
+            resultElement.textContent = `Error: ${error.message}`;
+          }
+        });
+
+      document
+        .getElementById("predictButton")
+        .addEventListener("click", async () => {
+          const resultElement = document.getElementById("predictResult");
+          resultElement.textContent = "Sending prediction request...";
+
+          const sampleData = {
+            name: "Test Patient",
+            age: 65,
+            gender: "Male",
+            blood_pressure: "140/90",
+            cholesterol: 220,
+            fasting_blood_sugar: 110,
+            chest_pain_type: "Typical Angina",
+            ecg_result: "Normal",
+            max_heart_rate: 140,
+            exercise_induced_angina: true,
+            st_depression: 1.5,
+            slope_of_st: "Flat",
+            number_of_major_vessels: 2,
+            thalassemia: "Normal",
+            prior_cardiac_event: {
+              type: "Myocardial Infarction",
+              time_since_event: 6,
+              severity: "Moderate",
+            },
+            medications: [
+              {
+                type: "Beta-blockers",
+                time_of_administration: 2,
+              },
+              {
+                type: "ACE inhibitors",
+                time_of_administration: 4,
+              },
+            ],
+          };
+
+          try {
+            const response = await fetch("http://localhost:8000/api/predict", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(sampleData),
+            });
+
+            const data = await response.json();
+            resultElement.textContent = `Prediction: ${data.prediction}\nConfidence: ${data.confidence}\nPatient ID: ${data.patient_id}`;
+          } catch (error) {
+            resultElement.textContent = `Error: ${error.message}`;
+          }
+        });
+    </script>
+  </body>
+</html>

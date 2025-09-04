@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Failure Prediction - Training Configuration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-group label {
+            margin-left: 10px;
+            font-weight: normal;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .current-config {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .current-config h3 {
+            margin-top: 0;
+        }
+        .current-config pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Heart Failure Prediction System</h1>
+        <h2>Training Configuration</h2>
+        
+        <div class="current-config">
+            <h3>Current Configuration</h3>
+            <pre id="current-config">Loading...</pre>
+        </div>
+        
+        <form id="config-form">
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="use_neural_network" name="use_neural_network">
+                <label for="use_neural_network">Use Neural Network Model</label>
+            </div>
+            
+            <div class="form-group">
+                <label for="epochs">Number of Training Epochs:</label>
+                <input type="number" id="epochs" name="epochs" min="1" max="1000" value="50">
+            </div>
+            
+            <div class="form-group">
+                <label for="batch_size">Batch Size:</label>
+                <input type="number" id="batch_size" name="batch_size" min="1" max="256" value="32">
+            </div>
+            
+            <div class="form-group">
+                <label for="validation_split">Validation Split (0.1-0.5):</label>
+                <input type="number" id="validation_split" name="validation_split" min="0.1" max="0.5" step="0.05" value="0.2">
+            </div>
+            
+            <div class="form-group">
+                <label for="early_stopping_patience">Early Stopping Patience:</label>
+                <input type="number" id="early_stopping_patience" name="early_stopping_patience" min="1" max="50" value="10">
+            </div>
+            
+            <div class="form-group">
+                <label for="learning_rate">Learning Rate:</label>
+                <input type="number" id="learning_rate" name="learning_rate" min="0.0001" max="0.1" step="0.0001" value="0.001">
+            </div>
+            
+            <button type="submit">Update Configuration</button>
+        </form>
+        
+        <div id="status" class="status" style="display: none;"></div>
+        
+        <div style="margin-top: 20px;">
+            <button id="retrain-btn" type="button">Retrain Model with New Configuration</button>
+        </div>
+    </div>
+    
+    <script>
+        // Function to fetch current configuration
+        async function fetchConfig() {
+            try {
+                const response = await fetch('/api/training/config');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const config = await response.json();
+                
+                // Display current config
+                document.getElementById('current-config').textContent = JSON.stringify(config, null, 2);
+                
+                // Populate form with current values
+                document.getElementById('use_neural_network').checked = config.use_neural_network;
+                document.getElementById('epochs').value = config.epochs;
+                document.getElementById('batch_size').value = config.batch_size || 32;
+                document.getElementById('validation_split').value = config.validation_split || 0.2;
+                document.getElementById('early_stopping_patience').value = config.early_stopping_patience || 10;
+                document.getElementById('learning_rate').value = config.learning_rate || 0.001;
+                
+            } catch (error) {
+                console.error('Error fetching configuration:', error);
+                document.getElementById('current-config').textContent = 'Error loading configuration';
+            }
+        }
+        
+        // Function to update configuration
+        async function updateConfig(config) {
+            try {
+                const response = await fetch('/api/training/config', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(config)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                // Show success message
+                const statusEl = document.getElementById('status');
+                statusEl.textContent = result.message || 'Configuration updated successfully';
+                statusEl.className = 'status success';
+                statusEl.style.display = 'block';
+                
+                // Refresh current config
+                fetchConfig();
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 5000);
+                
+            } catch (error) {
+                console.error('Error updating configuration:', error);
+                
+                // Show error message
+                const statusEl = document.getElementById('status');
+                statusEl.textContent = 'Error updating configuration: ' + error.message;
+                statusEl.className = 'status error';
+                statusEl.style.display = 'block';
+            }
+        }
+        
+        // Function to retrain model
+        async function retrainModel() {
+            try {
+                const statusEl = document.getElementById('status');
+                statusEl.textContent = 'Retraining model... This may take a while.';
+                statusEl.className = 'status';
+                statusEl.style.display = 'block';
+                
+                const response = await fetch('/api/retrain', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                // Show success message
+                statusEl.textContent = result.message || 'Model retrained successfully';
+                statusEl.className = 'status success';
+                
+                // Refresh current config
+                fetchConfig();
+                
+            } catch (error) {
+                console.error('Error retraining model:', error);
+                
+                // Show error message
+                const statusEl = document.getElementById('status');
+                statusEl.textContent = 'Error retraining model: ' + error.message;
+                statusEl.className = 'status error';
+                statusEl.style.display = 'block';
+            }
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch current configuration
+            fetchConfig();
+            
+            // Form submission
+            document.getElementById('config-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get form values
+                const config = {
+                    use_neural_network: document.getElementById('use_neural_network').checked,
+                    epochs: parseInt(document.getElementById('epochs').value),
+                    batch_size: parseInt(document.getElementById('batch_size').value),
+                    validation_split: parseFloat(document.getElementById('validation_split').value),
+                    early_stopping_patience: parseInt(document.getElementById('early_stopping_patience').value),
+                    learning_rate: parseFloat(document.getElementById('learning_rate').value)
+                };
+                
+                // Update configuration
+                updateConfig(config);
+            });
+            
+            // Retrain button
+            document.getElementById('retrain-btn').addEventListener('click', retrainModel);
+        });
+    </script>
+</body>
+</html>

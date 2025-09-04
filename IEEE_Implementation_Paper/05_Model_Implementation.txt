@@ -1,0 +1,251 @@
+\section{Model Implementation}
+
+\subsection{Random Forest Implementation}
+
+We implemented the Random Forest model using scikit-learn with custom extensions to enhance performance and interpretability for clinical applications. Random Forest was selected after comparative evaluation of multiple algorithms (including logistic regression, support vector machines, gradient boosting, and neural networks) due to its superior performance on our dataset, robustness to overfitting, and inherent interpretability.
+
+\subsubsection{Mathematical Formulation}
+
+Random Forest is an ensemble learning method that constructs multiple decision trees during training and outputs the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. The mathematical formulation of our Random Forest implementation is as follows:
+
+Let $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^n$ be the training dataset, where $\mathbf{x}_i \in \mathbb{R}^p$ is a $p$-dimensional feature vector and $y_i \in \{0, 1\}$ is the binary outcome (heart failure or no heart failure).
+
+The Random Forest model $f(\mathbf{x})$ is defined as:
+
+\begin{equation}
+    f(\mathbf{x}) = \frac{1}{B} \sum_{b=1}^{B} f_b(\mathbf{x})
+\end{equation}
+
+where $B$ is the number of trees in the forest (set to 500 in our implementation) and $f_b(\mathbf{x})$ is the prediction of the $b$-th tree.
+
+Each tree $f_b$ is trained on a bootstrap sample $\mathcal{D}_b$ of the original dataset $\mathcal{D}$. At each node of the tree, a random subset of $m = \sqrt{p}$ features is considered for splitting. The best split is determined using the Gini impurity criterion:
+
+\begin{equation}
+    \text{Gini}(D) = 1 - \sum_{i=1}^{c} p_i^2
+\end{equation}
+
+where $c$ is the number of classes (2 for binary classification) and $p_i$ is the proportion of samples in class $i$.
+
+For a split that divides node $D$ into left child $D_L$ and right child $D_R$, the Gini gain is calculated as:
+
+\begin{equation}
+    \text{Gain}(D, \text{split}) = \text{Gini}(D) - \frac{|D_L|}{|D|} \text{Gini}(D_L) - \frac{|D_R|}{|D|} \text{Gini}(D_R)
+\end{equation}
+
+The split with the highest Gini gain is selected at each node.
+
+For probability calibration, we apply Platt scaling to the raw scores. Let $s_i = f(\mathbf{x}_i)$ be the raw score for sample $i$. The calibrated probability is given by:
+
+\begin{equation}
+    P(y_i = 1 | \mathbf{x}_i) = \frac{1}{1 + e^{-(a \cdot s_i + b)}}
+\end{equation}
+
+where $a$ and $b$ are parameters learned from the validation data using maximum likelihood estimation.
+
+For feature importance, we use the mean decrease in impurity (MDI) method. The importance of feature $j$ is calculated as:
+
+\begin{equation}
+    \text{Importance}(X_j) = \sum_{t \in \text{Trees}} \sum_{n \in \text{Nodes}} w_n I_n \mathbf{1}(v_n = j)
+\end{equation}
+
+where $w_n$ is the weighted number of samples reaching node $n$, $I_n$ is the impurity decrease at node $n$, and $\mathbf{1}(v_n = j)$ is an indicator function that equals 1 if feature $j$ is used for splitting at node $n$ and 0 otherwise.
+
+\subsubsection{Model Configuration}
+
+The Random Forest classifier was configured with the following parameters:
+
+\begin{lstlisting}[caption=Random Forest Configuration, label=lst:rf_config]
+from sklearn.ensemble import RandomForestClassifier
+
+rf_model = RandomForestClassifier(
+    n_estimators=500,           # Number of trees
+    max_depth=None,             # No maximum depth limit
+    min_samples_split=5,        # Minimum samples required to split
+    min_samples_leaf=2,         # Minimum samples in leaf nodes
+    max_features='sqrt',        # Number of features to consider
+    bootstrap=True,             # Use bootstrap sampling
+    oob_score=True,             # Use out-of-bag samples
+    n_jobs=-1,                  # Use all available cores
+    random_state=42,            # For reproducibility
+    class_weight='balanced'     # Handle class imbalance
+)
+\end{lstlisting}
+
+\subsubsection{Training Process}
+
+We implemented a robust training process with cross-validation and hyperparameter optimization:
+
+\begin{algorithm}
+\caption{Random Forest Training Process}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Training data (X, y)
+\STATE \textbf{Output:} Trained model
+
+\STATE \textbf{function} TrainRandomForest(X, y)
+    \STATE X\_train, X\_val, y\_train, y\_val $\gets$ train\_test\_split(X, y, test\_size=0.2)
+
+    \STATE // Define hyperparameter search space
+    \STATE param\_space $\gets$ \{
+        \STATE \quad 'n\_estimators': [100, 300, 500, 700],
+        \STATE \quad 'min\_samples\_split': [2, 5, 10],
+        \STATE \quad 'min\_samples\_leaf': [1, 2, 4],
+        \STATE \quad 'max\_features': ['sqrt', 'log2', 0.3]
+    \STATE \}
+
+    \STATE // Bayesian optimization with 5-fold CV
+    \STATE optimizer $\gets$ BayesianOptimization(RandomForestClassifier, param\_space)
+    \STATE best\_params $\gets$ optimizer.optimize(X\_train, y\_train, cv=5)
+
+    \STATE // Train final model with best parameters
+    \STATE model $\gets$ RandomForestClassifier(**best\_params)
+    \STATE model.fit(X\_train, y\_train)
+
+    \STATE // Evaluate on validation set
+    \STATE performance $\gets$ EvaluateModel(model, X\_val, y\_val)
+
+    \STATE // Calibrate probabilities
+    \STATE calibrated\_model $\gets$ CalibrateModel(model, X\_val, y\_val)
+
+    \RETURN calibrated\_model
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Probability Calibration}
+
+To ensure reliable risk estimates, we implemented probability calibration using Platt scaling:
+
+\begin{lstlisting}[caption=Probability Calibration Implementation, label=lst:calibration]
+from sklearn.calibration import CalibratedClassifierCV
+
+def calibrate_model(model, X_val, y_val):
+    # Use sigmoid calibration (Platt scaling)
+    calibrator = CalibratedClassifierCV(
+        base_estimator=model,
+        method='sigmoid',
+        cv='prefit'  # Use prefit model
+    )
+
+    # Fit calibrator on validation data
+    calibrated_model = calibrator.fit(X_val, y_val)
+
+    return calibrated_model
+\end{lstlisting}
+
+\subsubsection{Feature Importance Calculation}
+
+We extended the standard Random Forest feature importance calculation to provide more stable and interpretable importance values:
+
+\begin{lstlisting}[caption=Feature Importance Implementation, label=lst:feature_importance]
+def calculate_feature_importance(model, feature_names):
+    # Get raw feature importances
+    importances = model.feature_importances_
+
+    # Calculate standard deviation across trees
+    std = np.std([tree.feature_importances_
+                 for tree in model.estimators_], axis=0)
+
+    # Create feature importance dictionary
+    importance_dict = {}
+    for i, feature in enumerate(feature_names):
+        importance_dict[feature] = {
+            'importance': importances[i],
+            'std': std[i]
+        }
+
+    # Sort by importance
+    sorted_importance = sorted(
+        importance_dict.items(),
+        key=lambda x: x[1]['importance'],
+        reverse=True
+    )
+
+    return sorted_importance
+\end{lstlisting}
+
+\subsection{Rule-Based Model Implementation}
+
+The rule-based component was implemented as a separate module that encodes established clinical knowledge and guidelines.
+
+\subsubsection{Rule Engine Architecture}
+
+We implemented a flexible rule engine with the following components:
+
+\begin{itemize}
+    \item \textbf{Rule Repository}: A collection of clinical rules stored in a structured format
+    \item \textbf{Rule Executor}: A component that applies rules to patient data
+    \item \textbf{Rule Editor}: A web-based interface for clinicians to view and modify rules
+    \item \textbf{Rule Versioning}: A system for tracking changes to rules over time
+\end{itemize}
+
+\subsubsection{Rule Definition}
+
+Rules were defined using a domain-specific language (DSL) that is both machine-readable and clinician-friendly:
+
+\begin{lstlisting}[caption=Rule Definition Example, label=lst:rule_definition]
+{
+  "rule_id": "HF_RISK_AGE",
+  "description": "Age-based heart failure risk factor",
+  "version": "1.2",
+  "author": "Dr. Smith",
+  "last_updated": "2023-05-15",
+  "condition": {
+    "operator": ">=",
+    "parameter": "age",
+    "value": 65
+  },
+  "action": {
+    "type": "add_risk_score",
+    "value": {
+      "type": "linear",
+      "base": 0.05,
+      "increment": 0.01,
+      "parameter": "age",
+      "threshold": 65
+    }
+  },
+  "evidence": [
+    {
+      "source": "McDonagh et al., 2021",
+      "strength": "strong"
+    }
+  ]
+}
+\end{lstlisting}
+
+\subsubsection{Rule Execution}
+
+The rule execution process was implemented as follows:
+
+\begin{algorithm}
+\caption{Rule Execution Process}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Patient data, Rule repository
+\STATE \textbf{Output:} Risk score
+
+\STATE \textbf{function} ExecuteRules(patientData, ruleRepository)
+    \STATE applicableRules $\gets$ FilterApplicableRules(patientData, ruleRepository)
+    \STATE riskScore $\gets$ 0
+
+    \FOR{each rule in applicableRules}
+        \IF{EvaluateCondition(rule.condition, patientData)}
+            \STATE riskContribution $\gets$ ExecuteAction(rule.action, patientData)
+            \STATE riskScore $\gets$ riskScore + riskContribution
+        \ENDIF
+    \ENDFOR
+
+    \STATE normalizedScore $\gets$ Sigmoid(riskScore)
+    \RETURN normalizedScore
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Clinical Guideline Implementation}
+
+We implemented specific modules for major clinical guidelines:
+
+\begin{itemize}
+    \item \textbf{ESC Guidelines}: Implementation of the 2021 ESC Guidelines for heart failure
+    \item \textbf{ACC/AHA Guidelines}: Implementation of the ACC/AHA heart failure risk assessment
+    \item \textbf{NICE Guidelines}: Implementation of the NICE guidelines for chronic heart failure
+\end{itemize}
+
+Each guideline module was implemented as a separate rule set that could be enabled or disabled based on clinical preferences.

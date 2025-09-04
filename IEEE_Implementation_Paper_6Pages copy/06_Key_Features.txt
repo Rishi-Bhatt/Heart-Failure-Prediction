@@ -1,0 +1,256 @@
+\section{Key Features}
+
+\subsection{Temporal Forecasting}
+
+The temporal forecasting module predicts risk trajectories over time, enabling clinicians to monitor disease progression and assess intervention effects.
+
+\subsubsection{Implementation}
+
+The temporal forecasting module is implemented in the TemporalForecaster class:
+
+\begin{lstlisting}[caption=Temporal Forecasting Implementation, label=lst:temporal]
+class TemporalForecaster:
+    """Class for forecasting future heart failure risk"""
+    
+    def __init__(self, model_type='random_forest'):
+        """Initialize the temporal forecaster"""
+        self.model_type = model_type
+        self.model = None
+        self.scaler = None
+        self.feature_names = None
+        self.forecast_horizon = 6  # Default forecast horizon (6 months)
+        
+    def extract_temporal_features(self, patient_history):
+        """Extract temporal features from patient history"""
+        features = {}
+        
+        # Sort history by timestamp
+        sorted_history = sorted(patient_history, 
+                               key=lambda x: x.get('timestamp', ''))
+        latest_visit = sorted_history[-1]
+        
+        # Extract static features from latest visit
+        features.update(extract_static_features(latest_visit))
+        
+        # Extract temporal features if we have multiple visits
+        if len(sorted_history) >= 2:
+            # Calculate risk slope (change in risk over time)
+            risk_values = []
+            timestamps = []
+            
+            for visit in sorted_history:
+                if 'risk_assessment' in visit and 'prediction' in visit['risk_assessment']:
+                    risk_values.append(float(visit['risk_assessment']['prediction']))
+                    timestamps.append(datetime.fromisoformat(visit['timestamp']))
+                    
+            if len(risk_values) >= 2:
+                # Calculate days between first and last measurement
+                days_elapsed = (timestamps[-1] - timestamps[0]).days
+                if days_elapsed > 0:
+                    # Risk change per day
+                    features['risk_slope'] = (risk_values[-1] - risk_values[0]) / days_elapsed
+                    
+                    # Calculate volatility (standard deviation of risk)
+                    if len(risk_values) >= 3:
+                        features['risk_volatility'] = np.std(risk_values)
+                        
+        return features
+        
+    def forecast(self, patient_history, horizon=None):
+        """Generate a forecast for a patient based on their history"""
+        if not patient_history or len(patient_history) == 0:
+            return {'status': 'error', 'message': 'No patient history provided.'}
+            
+        # Use default horizon if not specified
+        if horizon is None:
+            horizon = self.forecast_horizon
+            
+        # Extract features from patient history
+        features = self.extract_temporal_features(patient_history)
+        
+        # Sort history by timestamp
+        sorted_history = sorted(patient_history, 
+                               key=lambda x: x.get('timestamp', ''))
+        latest_visit = sorted_history[-1]
+        
+        # Get current risk assessment
+        current_risk = None
+        if 'risk_assessment' in latest_visit and 'prediction' in latest_visit['risk_assessment']:
+            current_risk = float(latest_visit['risk_assessment']['prediction'])
+            
+        # Get base prediction from model
+        base_prediction = self.predict_base_risk(features)
+        
+        # Get risk slope
+        risk_slope = features.get('risk_slope', 0)
+        
+        # Generate forecast for each month in the horizon
+        forecast_values = []
+        forecast_timestamps = []
+        confidence_values = []
+        
+        latest_timestamp = datetime.fromisoformat(latest_visit['timestamp'])
+        
+        for i in range(1, horizon + 1):
+            # Calculate forecast timestamp (approximately 30 days per month)
+            forecast_date = latest_timestamp + timedelta(days=i * 30)
+            
+            # Calculate forecast value using hybrid approach
+            # The weight of the trend increases for further predictions
+            trend_weight = min(0.7, i * 0.1)  # Increase weight for longer horizons
+            model_weight = 1 - trend_weight
+            
+            # Extrapolate based on trend
+            trend_prediction = current_risk + (risk_slope * i * 30) if current_risk is not None else base_prediction
+            
+            # Apply volatility adjustment for confidence intervals
+            if 'risk_volatility' in features:
+                volatility_factor = features['risk_volatility'] * math.sqrt(i)
+                lower_bound = max(0, trend_prediction - 1.96 * volatility_factor)
+                upper_bound = min(1, trend_prediction + 1.96 * volatility_factor)
+            else:
+                # Default confidence interval if volatility not available
+                lower_bound = max(0, trend_prediction - 0.1 * i)
+                upper_bound = min(1, trend_prediction + 0.1 * i)
+                
+            # Combine model prediction and trend
+            forecast_value = (model_weight * base_prediction) + (trend_weight * trend_prediction)
+            
+            # Store forecast values and confidence intervals
+            forecast_values.append(forecast_value)
+            forecast_timestamps.append(forecast_date.isoformat())
+            confidence_values.append([lower_bound, upper_bound])
+            
+        return {
+            'status': 'success',
+            'forecast_values': forecast_values,
+            'forecast_timestamps': forecast_timestamps,
+            'confidence_intervals': confidence_values,
+            'base_prediction': base_prediction,
+            'current_risk': current_risk,
+            'risk_slope': risk_slope
+        }
+\end{lstlisting}
+
+\subsection{Counterfactual Engine}
+
+The counterfactual engine generates "what-if" scenarios showing how changes to risk factors would affect the predicted risk:
+
+\begin{lstlisting}[caption=Counterfactual Engine Implementation, label=lst:counterfactual]
+class CounterfactualEngine:
+    """Engine for generating counterfactual explanations"""
+    
+    def __init__(self):
+        """Initialize the counterfactual engine"""
+        # Use the hybrid model for predictions
+        self.predictor = hybrid_model.hybrid_model
+        
+    def generate_counterfactuals(self, patient_data, num_counterfactuals=5):
+        """Generate counterfactual explanations for a patient"""
+        # Get the original prediction
+        original_prediction, original_confidence, _ = self.predictor.predict(patient_data)
+        
+        # Generate individual feature counterfactuals
+        feature_counterfactuals = self._generate_feature_counterfactuals(patient_data)
+        
+        # Generate combined counterfactuals (realistic intervention scenarios)
+        combined_counterfactuals = self._generate_combined_counterfactuals(
+            patient_data, feature_counterfactuals, num_counterfactuals
+        )
+        
+        # Add statistical confidence intervals
+        for cf in combined_counterfactuals:
+            cf['confidence_interval'] = self._calculate_confidence_interval(
+                cf['modified_prediction'], original_confidence
+            )
+            
+        # Sort counterfactuals by impact (largest risk reduction first)
+        feature_counterfactuals.sort(
+            key=lambda x: original_prediction - x['modified_prediction'],
+            reverse=True
+        )
+        
+        combined_counterfactuals.sort(
+            key=lambda x: original_prediction - x['modified_prediction'],
+            reverse=True
+        )
+        
+        return {
+            'original_prediction': float(original_prediction),
+            'original_confidence': float(original_confidence),
+            'feature_counterfactuals': feature_counterfactuals[:num_counterfactuals],
+            'combined_counterfactuals': combined_counterfactuals[:num_counterfactuals],
+            'clinical_guidelines': CLINICAL_GUIDELINES,
+            'timestamp': datetime.now().isoformat()
+        }
+\end{lstlisting}
+
+\subsection{Scenario-Specific Insights}
+
+The scenario-specific insights module provides personalized recommendations based on counterfactual analysis:
+
+\begin{lstlisting}[caption=Scenario-Specific Insights Implementation, label=lst:scenario]
+def generate_scenario_insights(patient_data, counterfactuals, forecast=None):
+    """Generate scenario-specific insights based on counterfactuals"""
+    # Get original prediction
+    original_prediction, _, _ = hybrid_model.predict(patient_data)
+    
+    # Extract key factors from counterfactuals
+    key_factors = []
+    for cf in counterfactuals:
+        if cf['absolute_impact'] > 0.05:  # Only consider significant factors
+            key_factors.append({
+                'name': cf['feature'],
+                'original_value': cf['original_value'],
+                'modified_value': cf['modified_value'],
+                'absolute_impact': cf['absolute_impact'],
+                'relative_impact': cf['relative_impact']
+            })
+            
+    # Sort key factors by impact
+    key_factors.sort(key=lambda x: x['absolute_impact'], reverse=True)
+    
+    # Generate insights based on key factors
+    insights = []
+    
+    # Add general risk assessment
+    if original_prediction < 0.15:
+        insights.append("Low risk of heart failure based on current assessment.")
+    elif original_prediction < 0.35:
+        insights.append("Moderate risk of heart failure. Consider preventive measures.")
+    else:
+        insights.append("High risk of heart failure. Immediate attention recommended.")
+        
+    # Add factor-specific insights
+    for factor in key_factors[:3]:  # Focus on top 3 factors
+        factor_name = factor['name']
+        
+        # Generate insight based on factor type
+        if 'blood_pressure' in factor_name:
+            insights.append(f"Blood pressure management could reduce risk by {factor['relative_impact']:.1f}%.")
+        elif 'cholesterol' in factor_name:
+            insights.append(f"Cholesterol management could reduce risk by {factor['relative_impact']:.1f}%.")
+        elif 'nt_probnp' in factor_name:
+            insights.append(f"Elevated NT-proBNP is a significant factor. Consider heart failure medication.")
+            
+    # Add temporal insights if forecast is available
+    if forecast and 'forecast_values' in forecast:
+        # Determine trend
+        if len(forecast['forecast_values']) >= 2:
+            first_value = forecast['forecast_values'][0]
+            last_value = forecast['forecast_values'][-1]
+            
+            if last_value > first_value * 1.1:
+                trend = "Increasing"
+                insights.append("Risk is projected to increase over time. Early intervention is recommended.")
+            elif last_value < first_value * 0.9:
+                trend = "Decreasing"
+                insights.append("Risk is projected to decrease over time. Continue current management.")
+            else:
+                trend = "Stable"
+                insights.append("Risk is projected to remain stable over time.")
+                
+    return insights
+\end{lstlisting}
+
+These key features work together to provide a comprehensive heart failure prediction system that not only predicts risk but also explains the predictions, forecasts future risk, and provides personalized recommendations for risk reduction.

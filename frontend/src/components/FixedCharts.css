@@ -1,0 +1,84 @@
+/* Styles for fixed chart components */
+
+.trajectory-chart {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+  font-size: 16px;
+  color: #666;
+}
+
+.error-message {
+  padding: 15px;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 4px;
+  color: #c62828;
+  margin-bottom: 20px;
+}
+
+.no-data-message {
+  padding: 15px;
+  background-color: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  border-radius: 4px;
+  color: #2e7d32;
+  margin-bottom: 20px;
+}
+
+.forecast-insights {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.insight-item {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.insight-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.insight-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Ensure canvas is visible */
+canvas {
+  display: block;
+  background-color: white;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}

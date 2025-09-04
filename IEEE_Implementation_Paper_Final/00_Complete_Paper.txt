@@ -1,0 +1,38 @@
+% IEEE Conference Format Implementation Paper - 6 Pages
+
+\documentclass[conference]{IEEEtran}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{listings}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+% Title and Abstract
+\input{01_Title_Abstract.txt}
+
+% Introduction
+\input{02_Introduction.txt}
+
+% System Architecture
+\input{03_System_Architecture.txt}
+
+% Data Processing and Model Implementation
+\input{04_Data_Processing.txt}
+
+% Hybrid Integration and Key Features
+\input{05_Hybrid_Integration.txt}
+
+% Evaluation
+\input{06_Evaluation.txt}
+
+% Implementation Challenges, Limitations, and Conclusion
+\input{07_Challenges_Conclusion.txt}
+
+\end{document}

@@ -1,0 +1,466 @@
++---------------------------+
+|                           |
+|    DATA ACQUISITION       |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Patient Data Input    | |
+| |                       | |
+| | - Demographics        | |
+| | - Clinical Parameters | |
+| | - Lab Results         | |
+| | - ECG Data            | |
+| | - Prior Cardiac Events| |
+| | - NT-proBNP Values    | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Data Validation       | |
+| |                       | |
+| | - Range Checking      | |
+| | - Completeness Check  | |
+| | - Format Validation   | |
+| | - Consistency Check   | |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+|    DATA PREPROCESSING     |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Missing Value Handling| |
+| |                       | |
+| | - Median Imputation   | |
+| | - Mode Imputation     | |
+| | - Clinical Knowledge  | |
+| |   Based Imputation    | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Feature Scaling       | |
+| |                       | |
+| | - Z-score Normalization| |
+| | - Min-Max Scaling     | |
+| | - Log Transformations | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Categorical Encoding  | |
+| |                       | |
+| | - One-hot Encoding    | |
+| | - Binary Encoding     | |
+| | - Ordinal Encoding    | |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+|   FEATURE ENGINEERING     |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | NT-proBNP Processing  | |
+| |                       | |
+| | - Age-adjusted        | |
+| |   Thresholds          | |
+| | - Ratio Calculation   | |
+| | - Sigmoid Normalization| |
+| | - Log Transformation  | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | ECG Feature Extraction| |
+| |                       | |
+| | - Abnormality Detection| |
+| | - Rhythm Analysis     | |
+| | - Interval Measurement| |
+| | - Morphology Analysis | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Interaction Terms     | |
+| |                       | |
+| | - Age-BP Interaction  | |
+| | - NT-proBNP-Age       | |
+| | - Angina-ST Depression| |
+| | - NT-proBNP-Vessels   | |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+| LONGITUDINAL TRACKING     |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Patient History       | |
+| | Retrieval             | |
+| |                       | |
+| | - Chronological Data  | |
+| | - Visit Records       | |
+| | - Test Results History| |
+| | - Treatment History   | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Temporal Feature      | |
+| | Extraction            | |
+| |                       | |
+| | - Parameter Slopes    | |
+| | - Volatility Measures | |
+| | - Event Frequencies   | |
+| | - Sequence Patterns   | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Longitudinal Data     | |
+| | Storage               | |
+| |                       | |
+| | - Timestamped Records | |
+| | - Versioned Data      | |
+| | - Efficient Retrieval | |
+| | - Data Integrity      | |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+|   PREDICTION PIPELINE     |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Data Integration Layer| |
+| |                       | |
+| | - Current + Historical| |
+| | - Clinical + Biomarker| |
+| | - Static + Temporal   | |
+| | - Feature Vector      | |
+| |   Preparation         | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Rule-Based Model      | |
+| |                       | |
+| | - Clinical Guidelines | |
+| | - Threshold Rules     | |
+| | - Risk Factor Scoring | |
+| | - Confidence Scoring  | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Logistic Regression   | |
+| | Model                 | |
+| |                       | |
+| | - Trained on UCI Data | |
+| | - Probability Output  | |
+| | - Confidence Scoring  | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Random Forest Model   | |
+| |                       | |
+| | - 500 Decision Trees  | |
+| | - Feature Importance  | |
+| | - Probability Output  | |
+| | - Confidence Scoring  | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Hybrid Model          | |
+| | Integration           | |
+| |                       | |
+| | - Dynamic Weighting   | |
+| | - Confidence-based    | |
+| |   Combination         | |
+| | - Final Risk Score    | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Current Risk          | |
+| | Assessment            | |
+| |                       | |
+| | - Risk Level          | |
+| | - Confidence Interval | |
+| | - Feature Contributions| |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+|    RISK FORECASTING       |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Trend Analysis        | |
+| |                       | |
+| | - Parameter Trends    | |
+| | - Risk Score Trends   | |
+| | - Volatility Analysis | |
+| | - Pattern Recognition | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Temporal Extrapolation| |
+| |                       | |
+| | - Linear Projection   | |
+| | - Decay Functions     | |
+| | - Time-dependent      | |
+| |   Weighting           | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Risk Forecasting      | |
+| | Model                 | |
+| |                       | |
+| | - 6-month Forecast    | |
+| | - 1-year Forecast     | |
+| | - 2-year Forecast     | |
+| | - Confidence Intervals| |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Intervention Impact   | |
+| | Modeling              | |
+| |                       | |
+| | - Medication Effects  | |
+| | - Lifestyle Changes   | |
+| | - Combined Effects    | |
+| | - Time-to-Effect      | |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+| COUNTERFACTUAL GENERATION |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Modifiable Factor     | |
+| | Identification        | |
+| |                       | |
+| | - Clinical Constraints| |
+| | - Immutable Features  | |
+| | - Modifiable Features | |
+| | - Intervention Options| |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Counterfactual        | |
+| | Optimization          | |
+| |                       | |
+| | - Distance Minimization| |
+| | - Clinical Validity   | |
+| | - Feasibility Checking| |
+| | - Impact Maximization | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Multi-step            | |
+| | Intervention Paths    | |
+| |                       | |
+| | - Sequential Changes  | |
+| | - Progressive Risk    | |
+| |   Reduction           | |
+| | - Temporal Sequencing | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Intervention Grouping | |
+| |                       | |
+| | - Lifestyle Group     | |
+| | - Medication Group    | |
+| | - Monitoring Group    | |
+| | - Synergy Calculation | |
+| | - Effort Assessment   | |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+|  EXPLANATION GENERATION   |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Feature Contribution  | |
+| | Calculation           | |
+| |                       | |
+| | - SHAP-like Values    | |
+| | - Direction Factors   | |
+| | - Normalized Weights  | |
+| | - Clinical Context    | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Risk Factor           | |
+| | Explanation           | |
+| |                       | |
+| | - Top Contributors    | |
+| | - Clinical Significance| |
+| | - Reference Ranges    | |
+| | - Severity Assessment | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Counterfactual        | |
+| | Explanation           | |
+| |                       | |
+| | - What-if Scenarios   | |
+| | - Intervention Effects| |
+| | - Effort-Impact Ratio | |
+| | - Implementation Plan | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Confidence            | |
+| | Explanation           | |
+| |                       | |
+| | - Uncertainty Sources | |
+| | - Data Quality Impact | |
+| | - Model Agreement     | |
+| | - Confidence Intervals| |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+|     VISUALIZATION         |
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Risk Dashboard        | |
+| |                       | |
+| | - Current Risk Display| |
+| | - Historical Trend    | |
+| | - Risk Factors        | |
+| | - Confidence Display  | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Temporal Visualization| |
+| |                       | |
+| | - Parameter Trends    | |
+| | - Risk Trajectories   | |
+| | - Forecast Curves     | |
+| | - Confidence Bands    | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | ECG Visualization     | |
+| |                       | |
+| | - Signal Display      | |
+| | - Abnormality Markers | |
+| | - Interval Measurements| |
+| | - Comparison View     | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Counterfactual        | |
+| | Visualization         | |
+| |                       | |
+| | - Intervention Impact | |
+| | - Before/After View   | |
+| | - Effort-Impact Matrix| |
+| | - Intervention Path   | |
+| +-----------------------+ |
+|                           |
++---------------------------+
+            |
+            v
++---------------------------+
+|                           |
+|  CLINICAL DECISION SUPPORT|
+|                           |
++---------------------------+
+|                           |
+| +-----------------------+ |
+| | Treatment             | |
+| | Recommendations       | |
+| |                       | |
+| | - Prioritized Actions | |
+| | - Evidence Links      | |
+| | - Expected Benefits   | |
+| | - Implementation Plan | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Risk Monitoring       | |
+| |                       | |
+| | - Follow-up Schedule  | |
+| | - Alert Thresholds    | |
+| | - Parameter Targets   | |
+| | - Progress Tracking   | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Patient Education     | |
+| |                       | |
+| | - Risk Explanation    | |
+| | - Intervention Benefits| |
+| | - Self-monitoring     | |
+| | - Adherence Support   | |
+| +-----------------------+ |
+|            |              |
+|            v              |
+| +-----------------------+ |
+| | Clinical Documentation| |
+| |                       | |
+| | - Risk Assessment     | |
+| | - Recommendation Log  | |
+| | - Intervention Plan   | |
+| | - Follow-up Schedule  | |
+| +-----------------------+ |
+|                           |
++-------------------------

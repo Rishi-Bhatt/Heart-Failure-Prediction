@@ -1,0 +1,134 @@
+\section{Data Processing and Feature Engineering}
+
+\subsection{Data Sources}
+
+The system was implemented to process data from multiple sources:
+
+\begin{itemize}
+    \item \textbf{Electronic Health Records (EHR)}: Patient demographics, medical history, medications, and laboratory results
+    \item \textbf{Biomarker Data}: NT-proBNP and other cardiac biomarkers
+    \item \textbf{ECG Data}: Digital ECG recordings and derived parameters
+    \item \textbf{Patient-Reported Outcomes}: Symptoms, quality of life measures, and functional status
+\end{itemize}
+
+For development and validation, we used data from the MIMIC-III clinical database, UK Biobank cardiovascular subset, and the UCI Heart Disease dataset, with a total sample size of n=12,546 patients.
+
+\subsection{Data Preprocessing Pipeline}
+
+We implemented a comprehensive data preprocessing pipeline to handle the challenges of clinical data:
+
+\begin{algorithm}
+\caption{Data Preprocessing Pipeline}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Raw patient data
+\STATE \textbf{Output:} Processed feature vectors
+
+\STATE \textbf{function} PreprocessData(patientData)
+    \STATE data $\gets$ ValidateData(patientData)
+    \STATE data $\gets$ HandleMissingValues(data)
+    \STATE data $\gets$ NormalizeValues(data)
+    \STATE data $\gets$ EncodeCategorialVariables(data)
+    \STATE data $\gets$ ExtractTemporalFeatures(data)
+    \STATE data $\gets$ ApplyFeatureTransformations(data)
+    \STATE data $\gets$ FeatureSelection(data)
+    \RETURN data
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Data Validation}
+
+We implemented comprehensive data validation to ensure data quality:
+
+\begin{itemize}
+    \item \textbf{Range checks}: Ensuring values are within clinically reasonable ranges
+    \item \textbf{Type validation}: Verifying data types match expected formats
+    \item \textbf{Consistency checks}: Identifying contradictory or impossible combinations of values
+    \item \textbf{Temporal validation}: Ensuring chronological consistency in time-series data
+\end{itemize}
+
+Invalid data points were flagged for review and either corrected or excluded from analysis.
+
+\subsubsection{Missing Value Handling}
+
+Clinical data often contains missing values. We implemented a hierarchical approach to handle missing data:
+
+\begin{enumerate}
+    \item \textbf{Domain-specific imputation}: Using clinical knowledge to impute values (e.g., using normal ranges for missing lab values)
+    \item \textbf{Multiple imputation}: For variables with moderate missingness (10-30\%)
+    \item \textbf{Model-based imputation}: Using MICE (Multiple Imputation by Chained Equations) for complex patterns of missingness
+    \item \textbf{Feature exclusion}: Excluding features with excessive missingness (>30\%)
+\end{enumerate}
+
+\subsubsection{Feature Engineering}
+
+We implemented extensive feature engineering to capture clinically relevant patterns:
+
+\begin{itemize}
+    \item \textbf{Demographic features}: Age, gender, BMI, and derived features
+    \item \textbf{Clinical parameters}: Blood pressure, cholesterol, blood sugar, and derived ratios
+    \item \textbf{Medical history}: Prior cardiac events, comorbidities, and family history
+    \item \textbf{Medication features}: Current medications, medication changes, and adherence
+    \item \textbf{Laboratory features}: NT-proBNP, troponin, creatinine, and derived features
+    \item \textbf{ECG features}: Heart rate, QRS duration, ST depression, and derived features
+    \item \textbf{Temporal features}: Trends, velocities, and variability in measurements
+\end{itemize}
+
+\subsubsection{NT-proBNP Processing}
+
+Special attention was given to NT-proBNP processing due to its importance in heart failure prediction:
+
+\begin{itemize}
+    \item \textbf{Age-adjusted normalization}: Implementing different thresholds based on age groups
+    \item \textbf{Log transformation}: Handling the wide range and right-skewed distribution
+    \item \textbf{Interaction features}: Creating interaction terms with age, kidney function, and other relevant variables
+\end{itemize}
+
+The implementation of NT-proBNP processing is shown in Listing 1.
+
+\begin{lstlisting}[caption=NT-proBNP Processing Implementation, label=lst:ntprobnp]
+def process_nt_probnp(value, age, egfr=None):
+    # Handle missing values
+    if value is None or np.isnan(value):
+        return None
+        
+    # Apply age-adjusted thresholds
+    if age < 50:
+        threshold = 450
+    elif age <= 75:
+        threshold = 900
+    else:
+        threshold = 1800
+        
+    # Log transformation for machine learning model
+    log_value = np.log1p(value)
+    
+    # Sigmoid normalization for rule-based model
+    normalized_value = 1.0 / (1.0 + np.exp(-0.003 * (value - threshold)))
+    
+    # Create interaction terms if eGFR is available
+    if egfr is not None:
+        # Adjust for kidney function
+        if egfr < 60:  # Reduced kidney function
+            kidney_factor = 1.0 + (60 - egfr) / 60
+            normalized_value = normalized_value / kidney_factor
+            
+    return {
+        'log_value': log_value,
+        'normalized_value': normalized_value,
+        'threshold': threshold
+    }
+\end{lstlisting}
+
+\subsection{Feature Selection}
+
+We implemented a multi-stage feature selection process:
+
+\begin{enumerate}
+    \item \textbf{Clinical relevance}: Initial selection based on clinical knowledge and literature
+    \item \textbf{Statistical significance}: Univariate analysis to identify statistically significant predictors
+    \item \textbf{Feature importance}: Using Random Forest feature importance to identify predictive features
+    \item \textbf{Recursive feature elimination}: Iterative removal of less important features
+    \item \textbf{Correlation analysis}: Removing highly correlated features to reduce multicollinearity
+\end{enumerate}
+
+This process reduced the initial feature set from over 200 features to 42 core features used in the final model.

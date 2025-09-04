@@ -1,0 +1,9 @@
+{
+  "epochs": 100,
+  "use_neural_network": true,
+  "batch_size": 64,
+  "validation_split": 0.3,
+  "early_stopping_patience": 15,
+  "learning_rate": 0.0005,
+  "optimizer": "adam"
+}

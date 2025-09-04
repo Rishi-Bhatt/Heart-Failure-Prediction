@@ -1,0 +1,112 @@
+[
+  {
+    "success": true,
+    "timestamp": "2025-04-14T18:48:11.039035",
+    "num_records": 12,
+    "total_records": 12,
+    "num_files": 12,
+    "processed_count": 11,
+    "skipped_count": 1,
+    "weights": {},
+    "message": "Hybrid model retrained with 12 records (Used 12 out of 12 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-14T18:49:14.781706",
+    "num_records": 12,
+    "total_records": 12,
+    "num_files": 12,
+    "processed_count": 11,
+    "skipped_count": 1,
+    "weights": {},
+    "message": "Hybrid model retrained with 12 records (Used 12 out of 12 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-14T18:54:33.384077",
+    "num_records": 12,
+    "total_records": 12,
+    "num_files": 12,
+    "processed_count": 11,
+    "skipped_count": 1,
+    "weights": {},
+    "message": "Hybrid model retrained with 12 records (Used 12 out of 12 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-14T19:11:52.941138",
+    "num_records": 12,
+    "total_records": 12,
+    "num_files": 12,
+    "processed_count": 11,
+    "skipped_count": 1,
+    "weights": {},
+    "message": "Hybrid model retrained with 12 records (Used 12 out of 12 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-14T20:06:28.609956",
+    "num_records": 14,
+    "total_records": 14,
+    "num_files": 14,
+    "processed_count": 13,
+    "skipped_count": 1,
+    "weights": {},
+    "message": "Hybrid model retrained with 14 records (Used 14 out of 14 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-14T20:16:43.163669",
+    "num_records": 14,
+    "total_records": 14,
+    "num_files": 14,
+    "processed_count": 13,
+    "skipped_count": 1,
+    "weights": {},
+    "message": "Hybrid model retrained with 14 records (Used 14 out of 14 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-14T20:34:00.436809",
+    "num_records": 15,
+    "total_records": 15,
+    "num_files": 15,
+    "processed_count": 14,
+    "skipped_count": 1,
+    "weights": {},
+    "message": "Hybrid model retrained with 15 records (Used 15 out of 15 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-15T11:58:46.076388",
+    "num_records": 16,
+    "total_records": 16,
+    "num_files": 17,
+    "processed_count": 16,
+    "skipped_count": 0,
+    "weights": {},
+    "message": "Hybrid model retrained with 16 records (Used 16 out of 17 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-15T11:59:02.721320",
+    "num_records": 16,
+    "total_records": 16,
+    "num_files": 17,
+    "processed_count": 16,
+    "skipped_count": 0,
+    "weights": {},
+    "message": "Hybrid model retrained with 16 records (Used 16 out of 17 patient files)"
+  },
+  {
+    "success": true,
+    "timestamp": "2025-04-15T15:35:16.990331",
+    "num_records": 22,
+    "total_records": 22,
+    "num_files": 23,
+    "processed_count": 22,
+    "skipped_count": 0,
+    "weights": {},
+    "message": "Hybrid model retrained with 22 records (Used 22 out of 23 patient files)"
+  }
+]
