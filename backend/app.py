@@ -8,12 +8,10 @@ from datetime import datetime
 import sys
 import traceback
 
-# Set the correct working directory
 script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
-print(f"Working directory set to: {os.getcwd()}")
 
-# Import custom modules
+from utils.ecg_generator import generate_ecg, analyze_ecg
 from utils.ecg_generator import generate_ecg, analyze_ecg
 from models.heart_failure_model import HeartFailureModel
 from retraining.model_retrainer import ModelRetrainer
@@ -22,13 +20,8 @@ from longitudinal_tracker import register_longitudinal_routes
 from counterfactual_routes import register_counterfactual_routes
 from ecg_routes import register_ecg_routes
 
-# Import training config routes
 from training_config_routes import register_training_config_routes
-
-# Import gradient boosting routes
 from gradient_boosting_routes import register_gradient_boosting_routes
-
-# Import risk calibration routes
 from risk_calibration import register_risk_calibration_routes
 
 app = Flask(__name__)
@@ -50,13 +43,8 @@ register_gradient_boosting_routes(app)
 register_risk_calibration_routes(app)
 print("All routes registered successfully.")
 
-# Initialize model
 model = HeartFailureModel()
-
-# Initialize model retrainer
 retrainer = ModelRetrainer(model, retraining_threshold=20)
-
-# Ensure data directories exist
 os.makedirs('data/patients', exist_ok=True)
 os.makedirs('data/predictions', exist_ok=True)
 
@@ -66,29 +54,18 @@ def predict():
     Endpoint to predict heart failure risk based on patient data
     """
     try:
-        # Get patient data from request
         patient_data = request.json
-
-        # Generate synthetic ECG based on patient data
         ecg_signal, ecg_time = generate_ecg(patient_data)
-
-        # Analyze ECG for abnormalities
         abnormalities = analyze_ecg(ecg_signal, ecg_time, patient_data)
-
-        # Make prediction
         features = model.preprocess_data(patient_data, abnormalities)
-
-        # Check if debug mode is requested
         debug_mode = patient_data.get('debug_mode', False)
         prediction, confidence, shap_values = model.predict(features, debug=debug_mode)
 
-        # Get risk category using the risk calibration module
         try:
             from risk_calibration import get_risk_category, get_risk_score_explanation
             risk_category = get_risk_category(prediction, patient_data)
             risk_explanation = get_risk_score_explanation(prediction, patient_data)
         except ImportError:
-            # Fallback if risk calibration module is not available
             if prediction < 0.15:
                 risk_category = 'Low'
             elif prediction < 0.35:
@@ -104,18 +81,13 @@ def predict():
                 }
             }
 
-        # Save patient data and prediction
         patient_id = save_patient_data(patient_data, ecg_signal, ecg_time,
                                       abnormalities, prediction, confidence, shap_values,
                                       risk_category, risk_explanation)
 
-        # Check if patient data was saved successfully
         if patient_id is None:
             print("ERROR: Failed to save patient data. Using temporary ID.")
-            # Generate a temporary ID for the response
             patient_id = f"temp_{datetime.now().strftime('%Y%m%d%H%M%S')}"
-
-            # Return response with error flag
             return jsonify({
                 'patient_id': patient_id,
                 'prediction': float(prediction),
@@ -130,11 +102,7 @@ def predict():
                 'error_message': 'Failed to save patient data. Results are temporary.'
             })
 
-        # Disable model retraining for now
-        # retraining_info = retrainer.check_retraining()
         retraining_info = {'status': 'disabled'}
-
-        # Log successful save
         print(f"Successfully processed prediction for patient {patient_id}")
 
         return jsonify({

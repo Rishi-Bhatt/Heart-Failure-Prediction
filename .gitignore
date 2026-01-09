@@ -123,3 +123,15 @@ backend/risk_assessment_test_results_*.json
 backend/shap_test_results.json
 backend/models/backup/
 backend/models/backup_large/
+
+# Documentation and research files
+*.md
+!README.md
+*.sh
+*.tex
+explanations/
+research/
+scripts/
+trained_models/*.json
+tests/
+datasets/

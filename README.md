@@ -23,26 +23,46 @@ A full-stack system that predicts heart failure risk using synthetic ECG signals
 ## Project Structure
 
 ```
-├── backend/
+├── backend/                    # Backend Flask application
 │   ├── app.py                 # Main Flask application
+│   ├── config.py              # Configuration settings
+│   ├── data_processor.py      # Data processing utilities
+│   ├── rule_based_model.py    # Rule-based prediction model
 │   ├── data/                  # Data storage directory
-│   ├── models/                # ML model directory
-│   │   └── heart_failure_model.py  # Heart failure prediction model
+│   ├── models/                # ML model implementations
+│   │   ├── heart_failure_model.py
+│   │   ├── gradient_boosting_model.py
+│   │   ├── neural_network_model.py
+│   │   └── simple_model.py
 │   ├── retraining/            # Model retraining utilities
-│   │   └── model_retrainer.py # Model retraining logic
+│   │   └── model_retrainer.py
 │   └── utils/                 # Utility functions
-│       └── ecg_generator.py   # ECG generation and analysis
-├── frontend/                  # React frontend
+│       └── ecg_generator.py
+├── frontend/                  # React frontend application
 │   ├── src/
 │   │   ├── components/        # React components
-│   │   │   ├── Navbar.jsx     # Navigation bar
-│   │   │   ├── PatientForm.jsx # Patient data input form
-│   │   │   ├── ResultsDisplay.jsx # Results visualization
-│   │   │   ├── PatientHistory.jsx # Patient records list
-│   │   │   └── PatientDetail.jsx # Individual patient details
-│   │   ├── App.jsx            # Main React component
-│   │   └── main.jsx           # React entry point
-└── run.sh                     # Script to run both frontend and backend
+│   │   ├── services/          # API service functions
+│   │   └── styles/            # CSS stylesheets
+│   └── package.json
+├── explanations/              # Documentation files (gitignored)
+│   ├── INSTALLATION.md
+│   ├── TROUBLESHOOTING.md
+│   └── [other documentation files]
+├── research/                  # Research papers and LaTeX files (gitignored)
+│   ├── *.tex                  # LaTeX source files
+│   ├── *.txt                  # Research documentation
+│   └── IEEE_Implementation_Paper/
+├── scripts/                   # Shell scripts for setup and running (gitignored)
+│   ├── run.sh
+│   ├── install_dependencies.sh
+│   └── [other shell scripts]
+├── tests/                     # Test files (gitignored)
+│   ├── test_*.py
+│   └── [other test files]
+├── trained_models/            # Trained model files (gitignored)
+│   └── *.json                 # Model configuration files
+├── datasets/                  # Dataset storage (gitignored)
+└── requirements.txt           # Python dependencies (in backend/)
 ```
 
 ## Getting Started
@@ -99,7 +119,7 @@ npm install
 Run the setup script which will set up the environment and start both servers:
 
 ```bash
-./run_with_setup.sh
+./scripts/run_with_setup.sh
 ```
 
 #### Option 2: Manual startup
@@ -136,6 +156,12 @@ All data in this system is simulated:
 - Patient clinical data is generated based on patterns from the Heart Failure Clinical Records Dataset
 - ECG signals are synthetically generated using NeuroKit2
 - ECG abnormalities are simulated based on clinical parameters
+
+## Model Loading
+
+The system uses pre-trained models stored locally. Models are loaded from the `trained_models/` directory. If models are not found locally, the system will train new models using synthetic data.
+
+For production use, you can upload your trained models to Hugging Face and modify the model loading code to download from there. This allows users to clone the repository and run the application without needing to train models or download datasets.
 
 ## Model Retraining
 

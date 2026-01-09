@@ -26,14 +26,14 @@ for package in packages:
         module = importlib.import_module(package)
         # Get the version if available
         version = getattr(module, '__version__', 'unknown')
-        print(f"✅ {package} (version: {version})")
+        print(f"[OK] {package} (version: {version})")
     except ImportError:
-        print(f"❌ {package} - NOT INSTALLED")
+        print(f"[MISSING] {package} - NOT INSTALLED")
         all_installed = False
 
 print("-" * 30)
 if all_installed:
-    print("All required packages are installed! 🎉")
+    print("All required packages are installed successfully.")
 else:
     print("Some packages are missing. Please install them using:")
     print("pip install -r requirements.txt")

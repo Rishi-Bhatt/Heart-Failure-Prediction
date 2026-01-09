@@ -754,7 +754,7 @@ const ResultsDisplay = ({ predictionResult }) => {
                     color: "#2e7d32",
                   }}
                 >
-                  ✅ Patient data has been saved successfully! You can view all
+                  Patient data has been saved successfully! You can view all
                   patients in the history page.
                 </p>
                 <button
@@ -783,7 +783,7 @@ const ResultsDisplay = ({ predictionResult }) => {
                     color: "#c62828",
                   }}
                 >
-                  ❌ {patientError}
+                  Error: {patientError}
                 </p>
                 <div
                   style={{
